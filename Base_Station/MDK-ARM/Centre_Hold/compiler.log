@@ -1,0 +1,96 @@
+>>> cc
+
+"../User/Middleware/Driver/drv_uart.h", line 55: Error:  #20: identifier "Struct_UART_Manage_Object" is undefined
+  extern Struct_UART_Manage_Object UART1_Manage_Object;
+         ^
+"../User/Middleware/Driver/drv_uart.h", line 56: Error:  #20: identifier "Struct_UART_Manage_Object" is undefined
+  extern Struct_UART_Manage_Object UART2_Manage_Object;
+         ^
+"../User/Middleware/Driver/drv_uart.h", line 57: Error:  #20: identifier "Struct_UART_Manage_Object" is undefined
+  extern Struct_UART_Manage_Object UART3_Manage_Object;
+         ^
+"../User/Middleware/Driver/drv_uart.h", line 58: Error:  #20: identifier "Struct_UART_Manage_Object" is undefined
+  extern Struct_UART_Manage_Object UART4_Manage_Object;
+         ^
+"../User/Middleware/Driver/drv_uart.h", line 59: Error:  #20: identifier "Struct_UART_Manage_Object" is undefined
+  extern Struct_UART_Manage_Object UART5_Manage_Object;
+         ^
+"../User/Middleware/Driver/drv_uart.h", line 60: Error:  #20: identifier "Struct_UART_Manage_Object" is undefined
+  extern Struct_UART_Manage_Object UART6_Manage_Object;
+         ^
+"../User/Middleware/Driver/drv_uart.h", line 61: Error:  #20: identifier "Struct_UART_Manage_Object" is undefined
+  extern Struct_UART_Manage_Object UART7_Manage_Object;
+         ^
+"../User/Middleware/Driver/drv_uart.h", line 62: Error:  #20: identifier "Struct_UART_Manage_Object" is undefined
+  extern Struct_UART_Manage_Object UART8_Manage_Object;
+         ^
+"../User/Middleware/Driver/drv_tim.h", line 47: Error:  #20: identifier "Struct_TIM_Manage_Object" is undefined
+  extern Struct_TIM_Manage_Object TIM1_Manage_Object;
+         ^
+"../User/Middleware/Driver/drv_tim.h", line 48: Error:  #20: identifier "Struct_TIM_Manage_Object" is undefined
+  extern Struct_TIM_Manage_Object TIM2_Manage_Object;
+         ^
+"../User/Middleware/Driver/drv_tim.h", line 49: Error:  #20: identifier "Struct_TIM_Manage_Object" is undefined
+  extern Struct_TIM_Manage_Object TIM3_Manage_Object;
+         ^
+"../User/Middleware/Driver/drv_tim.h", line 50: Error:  #20: identifier "Struct_TIM_Manage_Object" is undefined
+  extern Struct_TIM_Manage_Object TIM4_Manage_Object;
+         ^
+"../User/Middleware/Driver/drv_tim.h", line 51: Error:  #20: identifier "Struct_TIM_Manage_Object" is undefined
+  extern Struct_TIM_Manage_Object TIM5_Manage_Object;
+         ^
+"../User/Middleware/Driver/drv_tim.h", line 52: Error:  #20: identifier "Struct_TIM_Manage_Object" is undefined
+  extern Struct_TIM_Manage_Object TIM6_Manage_Object;
+         ^
+"../User/Middleware/Driver/drv_tim.h", line 53: Error:  #20: identifier "Struct_TIM_Manage_Object" is undefined
+  extern Struct_TIM_Manage_Object TIM7_Manage_Object;
+         ^
+"../User/Middleware/Driver/drv_tim.h", line 54: Error:  #20: identifier "Struct_TIM_Manage_Object" is undefined
+  extern Struct_TIM_Manage_Object TIM8_Manage_Object;
+         ^
+"../User/Middleware/Driver/drv_tim.h", line 55: Error:  #20: identifier "Struct_TIM_Manage_Object" is undefined
+  extern Struct_TIM_Manage_Object TIM9_Manage_Object;
+         ^
+"../User/Middleware/Driver/drv_tim.h", line 56: Error:  #20: identifier "Struct_TIM_Manage_Object" is undefined
+  extern Struct_TIM_Manage_Object TIM10_Manage_Object;
+         ^
+"../User/Middleware/Driver/drv_tim.h", line 57: Error:  #20: identifier "Struct_TIM_Manage_Object" is undefined
+  extern Struct_TIM_Manage_Object TIM11_Manage_Object;
+         ^
+"../User/Middleware/Driver/drv_tim.h", line 58: Error:  #20: identifier "Struct_TIM_Manage_Object" is undefined
+  extern Struct_TIM_Manage_Object TIM12_Manage_Object;
+         ^
+"../User/Middleware/Driver/drv_tim.h", line 59: Error:  #20: identifier "Struct_TIM_Manage_Object" is undefined
+  extern Struct_TIM_Manage_Object TIM13_Manage_Object;
+         ^
+"../User/Middleware/Driver/drv_tim.h", line 60: Error:  #20: identifier "Struct_TIM_Manage_Object" is undefined
+  extern Struct_TIM_Manage_Object TIM14_Manage_Object;
+         ^
+"../User/Middleware/Algorithm/alg_fsm.h", line 41: Error:  #20: identifier "Enum_Status_Stage" is undefined
+      Enum_Status_Stage Status_Stage;
+      ^
+"../User/Middleware/Algorithm/alg_fsm.h", line 50: Error:  #20: identifier "class" is undefined
+  class Class_FSM
+  ^
+"../User/Middleware/Algorithm/alg_fsm.h", line 51: Error:  #65: expected a ";"
+  {
+  ^
+"../User/Middleware/Algorithm/alg_fsm.h", line 83: Error:  #169: expected a declaration
+  };
+  ^
+"../User/Middleware/Algorithm/alg_fsm.h", line 94: Error:  #65: expected a ";"
+  uint8_t Class_FSM::Get_Now_Status_Serial()
+                   ^
+"../User/Device/dvc_cargo.h", line 36: Error:  #20: identifier "Struct_Cargo" is undefined
+      Struct_Cargo* Next_Cargo;
+      ^
+"../User/Device/dvc_cargo.h", line 45: Error:  #20: identifier "class" is undefined
+  class Class_Cargo_List
+  ^
+"../User/Device/dvc_cargo.h", line 46: Error:  #65: expected a ";"
+  {
+  ^
+.\..\Core\Src\main.c: 0 warnings, 30 errors
+
+>>> ld
+

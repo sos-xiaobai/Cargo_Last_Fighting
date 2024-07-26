@@ -1,0 +1,728 @@
+[2024-07-23 10:26:05]	[done]
+	build successfully !
+
+[2024-07-23 10:29:26]	[done]
+	build successfully !
+
+[2024-07-23 10:45:34]	link failed !, exit code: 1
+   at unify_builder.Program.Main(String[] args_)
+---
+Error: L6218E: Undefined symbol huart6 (referred from ita_chariot.o).
+Not enough information to list image symbols.
+Finished: 1 information, 0 warning and 1 error messages.
+
+
+[2024-07-23 10:46:08]	compilation failed at : "d:\emmble-2024\2024-huawei\Centre\User\Interaction\ita_chariot.cpp", exit code: 1
+command: 
+  "D:\Keil5\keil5_anzhuangbao\ARM\ARMCLANG\bin\armclang.exe" --target=arm-arm-none-eabi -c -xc++ -std=c++11 -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../User/Device -I../User/Interaction -I../User/Middleware/Algorithm -I../User/Middleware/Driver -I../User/Task -IRTE/_Centre_Hold -DUSE_HAL_DRIVER -DSTM32F105xC -mcpu=cortex-m3 -mlittle-endian -O3 -ffunction-sections -funsigned-char -fshort-enums -fshort-wchar -fno-rtti -w -g -o ./../MDK-ARM/Centre_Hold/.obj/__/User/Interaction/ita_chariot.o -MMD ./../User/Interaction/ita_chariot.cpp
+   at unify_builder.Program.Main(String[] args_)
+---
+In file included from ./../User/Interaction/ita_chariot.cpp:16:
+../Core/Inc\usart.h:35:27: error: declaration of 'huart5' has a different language linkage
+   35 | extern UART_HandleTypeDef huart5;
+      |                           ^
+../User/Middleware/Driver\drv_uart.h:50:27: note: previous declaration is here
+   50 | extern UART_HandleTypeDef huart5;
+      |                           ^
+In file included from ./../User/Interaction/ita_chariot.cpp:16:
+../Core/Inc\usart.h:37:27: error: declaration of 'huart1' has a different language linkage
+   37 | extern UART_HandleTypeDef huart1;
+      |                           ^
+../User/Middleware/Driver\drv_uart.h:51:27: note: previous declaration is here
+   51 | extern UART_HandleTypeDef huart1;
+      |                           ^
+In file included from ./../User/Interaction/ita_chariot.cpp:16:
+../Core/Inc\usart.h:39:27: error: declaration of 'huart2' has a different language linkage
+   39 | extern UART_HandleTypeDef huart2;
+      |                           ^
+../User/Middleware/Driver\drv_uart.h:52:27: note: previous declaration is here
+   52 | extern UART_HandleTypeDef huart2;
+      |                           ^
+3 errors generated.
+
+[2024-07-23 10:46:29]	link failed !, exit code: 1
+   at unify_builder.Program.Main(String[] args_)
+---
+Error: L6218E: Undefined symbol huart6 (referred from ita_chariot.o).
+Not enough information to list image symbols.
+Finished: 1 information, 0 warning and 1 error messages.
+
+
+[2024-07-23 10:51:18]	link failed !, exit code: 1
+   at unify_builder.Program.Main(String[] args_)
+---
+Error: L6218E: Undefined symbol huart6 (referred from ita_chariot.o).
+Not enough information to list image symbols.
+Finished: 1 information, 0 warning and 1 error messages.
+
+
+[2024-07-23 10:51:34]	compilation failed at : "d:\emmble-2024\2024-huawei\Centre\User\Interaction\ita_chariot.cpp", exit code: 1
+command: 
+  "D:\Keil5\keil5_anzhuangbao\ARM\ARMCLANG\bin\armclang.exe" --target=arm-arm-none-eabi -c -xc++ -std=c++11 -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../User/Device -I../User/Interaction -I../User/Middleware/Algorithm -I../User/Middleware/Driver -I../User/Task -IRTE/_Centre_Hold -DUSE_HAL_DRIVER -DSTM32F105xC -mcpu=cortex-m3 -mlittle-endian -O3 -ffunction-sections -funsigned-char -fshort-enums -fshort-wchar -fno-rtti -w -g -o ./../MDK-ARM/Centre_Hold/.obj/__/User/Interaction/ita_chariot.o -MMD ./../User/Interaction/ita_chariot.cpp
+   at unify_builder.Program.Main(String[] args_)
+---
+./../User/Interaction/ita_chariot.cpp:92:24: error: use of undeclared identifier 'huart3'
+   92 |     HAL_UART_Transmit(&huart3,tmp_send_buf,send_buf_len,10);
+      |                        ^
+./../User/Interaction/ita_chariot.cpp:108:24: error: use of undeclared identifier 'huart3'
+  108 |     HAL_UART_Transmit(&huart3,tmp_send_buf,send_buf_len,10);
+      |                        ^
+2 errors generated.
+
+[2024-07-23 10:55:17]	[done]
+	build successfully !
+
+[2024-07-23 10:56:35]	[done]
+	build successfully !
+
+[2024-07-23 10:57:29]	[done]
+	build successfully !
+
+[2024-07-23 10:58:04]	[done]
+	build successfully !
+
+[2024-07-23 15:34:44]	compilation failed at : "d:\emmble-2024\2024-huawei\Centre\User\Interaction\ita_chariot.cpp", exit code: 1
+command: 
+  "D:\Keil5\keil5_anzhuangbao\ARM\ARMCLANG\bin\armclang.exe" --target=arm-arm-none-eabi -c -xc++ -std=c++11 -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../User/Device -I../User/Interaction -I../User/Middleware/Algorithm -I../User/Middleware/Driver -I../User/Task -IRTE/_Centre_Hold -DUSE_HAL_DRIVER -DSTM32F105xC -mcpu=cortex-m3 -mlittle-endian -O3 -ffunction-sections -funsigned-char -fshort-enums -fshort-wchar -fno-rtti -w -g -o ./../MDK-ARM/Centre_Hold/.obj/__/User/Interaction/ita_chariot.o -MMD ./../User/Interaction/ita_chariot.cpp
+   at unify_builder.Program.Main(String[] args_)
+---
+./../User/Interaction/ita_chariot.cpp:34:16: error: use of undeclared identifier 'huart3'
+   34 |     ER08.Init(&huart3);
+      |                ^
+1 error generated.
+
+[2024-07-23 15:35:31]	[done]
+	build successfully !
+
+[2024-07-23 15:37:41]	[done]
+	build successfully !
+
+[2024-07-23 15:44:33]	[done]
+	build successfully !
+
+[2024-07-23 15:45:39]	[done]
+	build successfully !
+
+[2024-07-23 15:47:25]	[done]
+	build successfully !
+
+[2024-07-23 15:47:48]	[done]
+	build successfully !
+
+[2024-07-23 15:56:40]	[done]
+	build successfully !
+
+[2024-07-23 15:56:57]	[done]
+	build successfully !
+
+[2024-07-23 16:05:21]	compilation failed at : "d:\emmble-2024\2024-huawei\Centre\User\Task\tsk_config_and_callback.cpp", exit code: 1
+command: 
+  "D:\Keil5\keil5_anzhuangbao\ARM\ARMCLANG\bin\armclang.exe" --target=arm-arm-none-eabi -c -xc++ -std=c++11 -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../User/Device -I../User/Interaction -I../User/Middleware/Algorithm -I../User/Middleware/Driver -I../User/Task -IRTE/_Centre_Hold -DUSE_HAL_DRIVER -DSTM32F105xC -mcpu=cortex-m3 -mlittle-endian -O3 -ffunction-sections -funsigned-char -fshort-enums -fshort-wchar -fno-rtti -w -g -o ./../MDK-ARM/Centre_Hold/.obj/__/User/Task/tsk_config_and_callback.o -MMD ./../User/Task/tsk_config_and_callback.cpp
+   at unify_builder.Program.Main(String[] args_)
+---
+In file included from ./../User/Task/tsk_config_and_callback.cpp:20:
+../Core/Inc\tim.h:35:26: error: declaration of 'htim2' has a different language linkage
+   35 | extern TIM_HandleTypeDef htim2;
+      |                          ^
+../User/Middleware/Driver\drv_tim.h:43:26: note: previous declaration is here
+   43 | extern TIM_HandleTypeDef htim2;
+      |                          ^
+1 error generated.
+
+[2024-07-23 16:05:32]	[done]
+	build successfully !
+
+[2024-07-23 16:25:17]	compilation failed at : "d:\emmble-2024\2024-huawei\Centre\Core\Src\main.c", exit code: 1
+command: 
+  "D:\Keil5\keil5_anzhuangbao\ARM\ARMCLANG\bin\armclang.exe" --target=arm-arm-none-eabi -c -xc -std=c99 -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../User/Device -I../User/Interaction -I../User/Middleware/Algorithm -I../User/Middleware/Driver -I../User/Task -IRTE/_Centre_Hold -DUSE_HAL_DRIVER -DSTM32F105xC -mcpu=cortex-m3 -mlittle-endian -O3 -ffunction-sections -funsigned-char -fshort-enums -fshort-wchar -fno-rtti -w -g -o ./../MDK-ARM/Centre_Hold/.obj/__/Core/Src/main.o -MMD ./../Core/Src/main.c
+   at unify_builder.Program.Main(String[] args_)
+---
+./../Core/Src/main.c:99:3: error: call to undeclared function 'Task_Init'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+   99 |   Task_Init();
+      |   ^
+1 error generated.
+
+[2024-07-23 17:48:16]	compilation failed at : "d:\emmble-2024\2024-huawei\Centre\Core\Src\main.c", exit code: 1
+command: 
+  "D:\Keil5\keil5_anzhuangbao\ARM\ARMCLANG\bin\armclang.exe" --target=arm-arm-none-eabi -c -xc -std=c99 -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../User/Device -I../User/Interaction -I../User/Middleware/Algorithm -I../User/Middleware/Driver -I../User/Task -IRTE/_Centre_Hold -DUSE_HAL_DRIVER -DSTM32F105xC -mcpu=cortex-m3 -mlittle-endian -O3 -ffunction-sections -funsigned-char -fshort-enums -fshort-wchar -fno-rtti -w -g -o ./../MDK-ARM/Centre_Hold/.obj/__/Core/Src/main.o -MMD ./../Core/Src/main.c
+   at unify_builder.Program.compileByMulThread(Int32 thrNum, CmdInfo[] cmds_, List`1 errLogs)
+   at unify_builder.Program.Main(String[] args_)
+---
+In file included from ./../Core/Src/main.c:28:
+In file included from ../User/Task\tsk_config_and_callback.h:21:
+In file included from ../User/Interaction\ita_chariot.h:17:
+../User/Middleware/Driver\drv_uart.h:55:8: error: must use 'struct' tag to refer to type 'Struct_UART_Manage_Object'
+   55 | extern Struct_UART_Manage_Object UART1_Manage_Object;
+      |        ^
+      |        struct 
+../User/Middleware/Driver\drv_uart.h:56:8: error: must use 'struct' tag to refer to type 'Struct_UART_Manage_Object'
+   56 | extern Struct_UART_Manage_Object UART2_Manage_Object;
+      |        ^
+      |        struct 
+../User/Middleware/Driver\drv_uart.h:57:8: error: must use 'struct' tag to refer to type 'Struct_UART_Manage_Object'
+   57 | extern Struct_UART_Manage_Object UART3_Manage_Object;
+      |        ^
+      |        struct 
+../User/Middleware/Driver\drv_uart.h:58:8: error: must use 'struct' tag to refer to type 'Struct_UART_Manage_Object'
+   58 | extern Struct_UART_Manage_Object UART4_Manage_Object;
+      |        ^
+      |        struct 
+../User/Middleware/Driver\drv_uart.h:59:8: error: must use 'struct' tag to refer to type 'Struct_UART_Manage_Object'
+   59 | extern Struct_UART_Manage_Object UART5_Manage_Object;
+      |        ^
+      |        struct 
+../User/Middleware/Driver\drv_uart.h:60:8: error: must use 'struct' tag to refer to type 'Struct_UART_Manage_Object'
+   60 | extern Struct_UART_Manage_Object UART6_Manage_Object;
+      |        ^
+      |        struct 
+../User/Middleware/Driver\drv_uart.h:61:8: error: must use 'struct' tag to refer to type 'Struct_UART_Manage_Object'
+   61 | extern Struct_UART_Manage_Object UART7_Manage_Object;
+      |        ^
+      |        struct 
+../User/Middleware/Driver\drv_uart.h:62:8: error: must use 'struct' tag to refer to type 'Struct_UART_Manage_Object'
+   62 | extern Struct_UART_Manage_Object UART8_Manage_Object;
+      |        ^
+      |        struct 
+In file included from ./../Core/Src/main.c:28:
+In file included from ../User/Task\tsk_config_and_callback.h:21:
+In file included from ../User/Interaction\ita_chariot.h:18:
+../User/Middleware/Driver\drv_tim.h:49:8: error: must use 'struct' tag to refer to type 'Struct_TIM_Manage_Object'
+   49 | extern Struct_TIM_Manage_Object TIM1_Manage_Object;
+      |        ^
+      |        struct 
+../User/Middleware/Driver\drv_tim.h:50:8: error: must use 'struct' tag to refer to type 'Struct_TIM_Manage_Object'
+   50 | extern Struct_TIM_Manage_Object TIM2_Manage_Object;
+      |        ^
+      |        struct 
+../User/Middleware/Driver\drv_tim.h:51:8: error: must use 'struct' tag to refer to type 'Struct_TIM_Manage_Object'
+   51 | extern Struct_TIM_Manage_Object TIM3_Manage_Object;
+      |        ^
+      |        struct 
+../User/Middleware/Driver\drv_tim.h:52:8: error: must use 'struct' tag to refer to type 'Struct_TIM_Manage_Object'
+   52 | extern Struct_TIM_Manage_Object TIM4_Manage_Object;
+      |        ^
+      |        struct 
+../User/Middleware/Driver\drv_tim.h:53:8: error: must use 'struct' tag to refer to type 'Struct_TIM_Manage_Object'
+   53 | extern Struct_TIM_Manage_Object TIM5_Manage_Object;
+      |        ^
+      |        struct 
+../User/Middleware/Driver\drv_tim.h:54:8: error: must use 'struct' tag to refer to type 'Struct_TIM_Manage_Object'
+   54 | extern Struct_TIM_Manage_Object TIM6_Manage_Object;
+      |        ^
+      |        struct 
+../User/Middleware/Driver\drv_tim.h:55:8: error: must use 'struct' tag to refer to type 'Struct_TIM_Manage_Object'
+   55 | extern Struct_TIM_Manage_Object TIM7_Manage_Object;
+      |        ^
+      |        struct 
+../User/Middleware/Driver\drv_tim.h:56:8: error: must use 'struct' tag to refer to type 'Struct_TIM_Manage_Object'
+   56 | extern Struct_TIM_Manage_Object TIM8_Manage_Object;
+      |        ^
+      |        struct 
+../User/Middleware/Driver\drv_tim.h:57:8: error: must use 'struct' tag to refer to type 'Struct_TIM_Manage_Object'
+   57 | extern Struct_TIM_Manage_Object TIM9_Manage_Object;
+      |        ^
+      |        struct 
+../User/Middleware/Driver\drv_tim.h:58:8: error: must use 'struct' tag to refer to type 'Struct_TIM_Manage_Object'
+   58 | extern Struct_TIM_Manage_Object TIM10_Manage_Object;
+      |        ^
+      |        struct 
+../User/Middleware/Driver\drv_tim.h:59:8: error: must use 'struct' tag to refer to type 'Struct_TIM_Manage_Object'
+   59 | extern Struct_TIM_Manage_Object TIM11_Manage_Object;
+      |        ^
+      |        struct 
+fatal error: too many errors emitted, stopping now [-ferror-limit=]
+20 errors generated.
+
+[2024-07-23 17:48:41]	compilation failed at : "d:\emmble-2024\2024-huawei\Centre\Core\Src\main.c", exit code: 1
+command: 
+  "D:\Keil5\keil5_anzhuangbao\ARM\ARMCLANG\bin\armclang.exe" --target=arm-arm-none-eabi -c -xc -std=c99 -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../User/Device -I../User/Interaction -I../User/Middleware/Algorithm -I../User/Middleware/Driver -I../User/Task -IRTE/_Centre_Hold -DUSE_HAL_DRIVER -DSTM32F105xC -mcpu=cortex-m3 -mlittle-endian -O3 -ffunction-sections -funsigned-char -fshort-enums -fshort-wchar -fno-rtti -w -g --cpp11 -o ./../MDK-ARM/Centre_Hold/.obj/__/Core/Src/main.o -MMD ./../Core/Src/main.c
+   at unify_builder.Program.compileByMulThread(Int32 thrNum, CmdInfo[] cmds_, List`1 errLogs)
+   at unify_builder.Program.Main(String[] args_)
+---
+armclang: error: unknown argument: '--cpp11'
+
+[2024-07-23 17:48:50]	compilation failed at : "d:\emmble-2024\2024-huawei\Centre\Core\Src\main.c", exit code: 1
+command: 
+  "D:\Keil5\keil5_anzhuangbao\ARM\ARMCLANG\bin\armclang.exe" --target=arm-arm-none-eabi -c -xc -std=c99 -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../User/Device -I../User/Interaction -I../User/Middleware/Algorithm -I../User/Middleware/Driver -I../User/Task -IRTE/_Centre_Hold -DUSE_HAL_DRIVER -DSTM32F105xC -mcpu=cortex-m3 -mlittle-endian -O3 -ffunction-sections -funsigned-char -fshort-enums -fshort-wchar -fno-rtti -w -g --cpp -o ./../MDK-ARM/Centre_Hold/.obj/__/Core/Src/main.o -MMD ./../Core/Src/main.c
+   at unify_builder.Program.Main(String[] args_)
+---
+armclang: error: unknown argument: '--cpp'
+
+[2024-07-23 17:48:59]	compilation failed at : "d:\emmble-2024\2024-huawei\Centre\Core\Src\main.c", exit code: 1
+command: 
+  "D:\Keil5\keil5_anzhuangbao\ARM\ARMCLANG\bin\armclang.exe" --target=arm-arm-none-eabi -c -xc -std=c99 -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../User/Device -I../User/Interaction -I../User/Middleware/Algorithm -I../User/Middleware/Driver -I../User/Task -IRTE/_Centre_Hold -DUSE_HAL_DRIVER -DSTM32F105xC -mcpu=cortex-m3 -mlittle-endian -O3 -ffunction-sections -funsigned-char -fshort-enums -fshort-wchar -fno-rtti -w -g -cpp -o ./../MDK-ARM/Centre_Hold/.obj/__/Core/Src/main.o -MMD ./../Core/Src/main.c
+   at unify_builder.Program.Main(String[] args_)
+---
+armclang: error: unknown argument: '-cpp'
+
+[2024-07-23 17:49:04]	compilation failed at : "d:\emmble-2024\2024-huawei\Centre\Core\Src\main.c", exit code: 1
+command: 
+  "D:\Keil5\keil5_anzhuangbao\ARM\ARMCLANG\bin\armclang.exe" --target=arm-arm-none-eabi -c -xc -std=c99 -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../User/Device -I../User/Interaction -I../User/Middleware/Algorithm -I../User/Middleware/Driver -I../User/Task -IRTE/_Centre_Hold -DUSE_HAL_DRIVER -DSTM32F105xC -mcpu=cortex-m3 -mlittle-endian -O3 -ffunction-sections -funsigned-char -fshort-enums -fshort-wchar -fno-rtti -w -g -o ./../MDK-ARM/Centre_Hold/.obj/__/Core/Src/main.o -MMD ./../Core/Src/main.c
+   at unify_builder.Program.Main(String[] args_)
+---
+In file included from ./../Core/Src/main.c:28:
+In file included from ../User/Task\tsk_config_and_callback.h:21:
+In file included from ../User/Interaction\ita_chariot.h:17:
+../User/Middleware/Driver\drv_uart.h:55:8: error: must use 'struct' tag to refer to type 'Struct_UART_Manage_Object'
+   55 | extern Struct_UART_Manage_Object UART1_Manage_Object;
+      |        ^
+      |        struct 
+../User/Middleware/Driver\drv_uart.h:56:8: error: must use 'struct' tag to refer to type 'Struct_UART_Manage_Object'
+   56 | extern Struct_UART_Manage_Object UART2_Manage_Object;
+      |        ^
+      |        struct 
+../User/Middleware/Driver\drv_uart.h:57:8: error: must use 'struct' tag to refer to type 'Struct_UART_Manage_Object'
+   57 | extern Struct_UART_Manage_Object UART3_Manage_Object;
+      |        ^
+      |        struct 
+../User/Middleware/Driver\drv_uart.h:58:8: error: must use 'struct' tag to refer to type 'Struct_UART_Manage_Object'
+   58 | extern Struct_UART_Manage_Object UART4_Manage_Object;
+      |        ^
+      |        struct 
+../User/Middleware/Driver\drv_uart.h:59:8: error: must use 'struct' tag to refer to type 'Struct_UART_Manage_Object'
+   59 | extern Struct_UART_Manage_Object UART5_Manage_Object;
+      |        ^
+      |        struct 
+../User/Middleware/Driver\drv_uart.h:60:8: error: must use 'struct' tag to refer to type 'Struct_UART_Manage_Object'
+   60 | extern Struct_UART_Manage_Object UART6_Manage_Object;
+      |        ^
+      |        struct 
+../User/Middleware/Driver\drv_uart.h:61:8: error: must use 'struct' tag to refer to type 'Struct_UART_Manage_Object'
+   61 | extern Struct_UART_Manage_Object UART7_Manage_Object;
+      |        ^
+      |        struct 
+../User/Middleware/Driver\drv_uart.h:62:8: error: must use 'struct' tag to refer to type 'Struct_UART_Manage_Object'
+   62 | extern Struct_UART_Manage_Object UART8_Manage_Object;
+      |        ^
+      |        struct 
+In file included from ./../Core/Src/main.c:28:
+In file included from ../User/Task\tsk_config_and_callback.h:21:
+In file included from ../User/Interaction\ita_chariot.h:18:
+../User/Middleware/Driver\drv_tim.h:49:8: error: must use 'struct' tag to refer to type 'Struct_TIM_Manage_Object'
+   49 | extern Struct_TIM_Manage_Object TIM1_Manage_Object;
+      |        ^
+      |        struct 
+../User/Middleware/Driver\drv_tim.h:50:8: error: must use 'struct' tag to refer to type 'Struct_TIM_Manage_Object'
+   50 | extern Struct_TIM_Manage_Object TIM2_Manage_Object;
+      |        ^
+      |        struct 
+../User/Middleware/Driver\drv_tim.h:51:8: error: must use 'struct' tag to refer to type 'Struct_TIM_Manage_Object'
+   51 | extern Struct_TIM_Manage_Object TIM3_Manage_Object;
+      |        ^
+      |        struct 
+../User/Middleware/Driver\drv_tim.h:52:8: error: must use 'struct' tag to refer to type 'Struct_TIM_Manage_Object'
+   52 | extern Struct_TIM_Manage_Object TIM4_Manage_Object;
+      |        ^
+      |        struct 
+../User/Middleware/Driver\drv_tim.h:53:8: error: must use 'struct' tag to refer to type 'Struct_TIM_Manage_Object'
+   53 | extern Struct_TIM_Manage_Object TIM5_Manage_Object;
+      |        ^
+      |        struct 
+../User/Middleware/Driver\drv_tim.h:54:8: error: must use 'struct' tag to refer to type 'Struct_TIM_Manage_Object'
+   54 | extern Struct_TIM_Manage_Object TIM6_Manage_Object;
+      |        ^
+      |        struct 
+../User/Middleware/Driver\drv_tim.h:55:8: error: must use 'struct' tag to refer to type 'Struct_TIM_Manage_Object'
+   55 | extern Struct_TIM_Manage_Object TIM7_Manage_Object;
+      |        ^
+      |        struct 
+../User/Middleware/Driver\drv_tim.h:56:8: error: must use 'struct' tag to refer to type 'Struct_TIM_Manage_Object'
+   56 | extern Struct_TIM_Manage_Object TIM8_Manage_Object;
+      |        ^
+      |        struct 
+../User/Middleware/Driver\drv_tim.h:57:8: error: must use 'struct' tag to refer to type 'Struct_TIM_Manage_Object'
+   57 | extern Struct_TIM_Manage_Object TIM9_Manage_Object;
+      |        ^
+      |        struct 
+../User/Middleware/Driver\drv_tim.h:58:8: error: must use 'struct' tag to refer to type 'Struct_TIM_Manage_Object'
+   58 | extern Struct_TIM_Manage_Object TIM10_Manage_Object;
+      |        ^
+      |        struct 
+../User/Middleware/Driver\drv_tim.h:59:8: error: must use 'struct' tag to refer to type 'Struct_TIM_Manage_Object'
+   59 | extern Struct_TIM_Manage_Object TIM11_Manage_Object;
+      |        ^
+      |        struct 
+fatal error: too many errors emitted, stopping now [-ferror-limit=]
+20 errors generated.
+
+[2024-07-23 17:59:55]	compilation failed at : "d:\emmble-2024\2024-huawei\Centre\Core\Src\main.c", exit code: 1
+command: 
+  "D:\Keil5\keil5_anzhuangbao\ARM\ARMCLANG\bin\armclang.exe" --target=arm-arm-none-eabi -c -xc -std=c99 -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../User/Device -I../User/Interaction -I../User/Middleware/Algorithm -I../User/Middleware/Driver -I../User/Task -IRTE/_Centre_Hold -DUSE_HAL_DRIVER -DSTM32F105xC -mcpu=cortex-m3 -mlittle-endian -O3 -ffunction-sections -funsigned-char -fshort-enums -fshort-wchar -fno-rtti -w -g -o ./../MDK-ARM/Centre_Hold/.obj/__/Core/Src/main.o -MMD ./../Core/Src/main.c
+   at unify_builder.Program.compileByMulThread(Int32 thrNum, CmdInfo[] cmds_, List`1 errLogs)
+   at unify_builder.Program.Main(String[] args_)
+---
+In file included from ./../Core/Src/main.c:28:
+In file included from ../User/Task\tsk_config_and_callback.h:21:
+In file included from ../User/Interaction\ita_chariot.h:17:
+../User/Middleware/Driver\drv_uart.h:55:8: error: must use 'struct' tag to refer to type 'Struct_UART_Manage_Object'
+   55 | extern Struct_UART_Manage_Object UART1_Manage_Object;
+      |        ^
+      |        struct 
+../User/Middleware/Driver\drv_uart.h:56:8: error: must use 'struct' tag to refer to type 'Struct_UART_Manage_Object'
+   56 | extern Struct_UART_Manage_Object UART2_Manage_Object;
+      |        ^
+      |        struct 
+../User/Middleware/Driver\drv_uart.h:57:8: error: must use 'struct' tag to refer to type 'Struct_UART_Manage_Object'
+   57 | extern Struct_UART_Manage_Object UART3_Manage_Object;
+      |        ^
+      |        struct 
+../User/Middleware/Driver\drv_uart.h:58:8: error: must use 'struct' tag to refer to type 'Struct_UART_Manage_Object'
+   58 | extern Struct_UART_Manage_Object UART4_Manage_Object;
+      |        ^
+      |        struct 
+../User/Middleware/Driver\drv_uart.h:59:8: error: must use 'struct' tag to refer to type 'Struct_UART_Manage_Object'
+   59 | extern Struct_UART_Manage_Object UART5_Manage_Object;
+      |        ^
+      |        struct 
+../User/Middleware/Driver\drv_uart.h:60:8: error: must use 'struct' tag to refer to type 'Struct_UART_Manage_Object'
+   60 | extern Struct_UART_Manage_Object UART6_Manage_Object;
+      |        ^
+      |        struct 
+../User/Middleware/Driver\drv_uart.h:61:8: error: must use 'struct' tag to refer to type 'Struct_UART_Manage_Object'
+   61 | extern Struct_UART_Manage_Object UART7_Manage_Object;
+      |        ^
+      |        struct 
+../User/Middleware/Driver\drv_uart.h:62:8: error: must use 'struct' tag to refer to type 'Struct_UART_Manage_Object'
+   62 | extern Struct_UART_Manage_Object UART8_Manage_Object;
+      |        ^
+      |        struct 
+In file included from ./../Core/Src/main.c:28:
+In file included from ../User/Task\tsk_config_and_callback.h:21:
+In file included from ../User/Interaction\ita_chariot.h:18:
+../User/Middleware/Driver\drv_tim.h:49:8: error: must use 'struct' tag to refer to type 'Struct_TIM_Manage_Object'
+   49 | extern Struct_TIM_Manage_Object TIM1_Manage_Object;
+      |        ^
+      |        struct 
+../User/Middleware/Driver\drv_tim.h:50:8: error: must use 'struct' tag to refer to type 'Struct_TIM_Manage_Object'
+   50 | extern Struct_TIM_Manage_Object TIM2_Manage_Object;
+      |        ^
+      |        struct 
+../User/Middleware/Driver\drv_tim.h:51:8: error: must use 'struct' tag to refer to type 'Struct_TIM_Manage_Object'
+   51 | extern Struct_TIM_Manage_Object TIM3_Manage_Object;
+      |        ^
+      |        struct 
+../User/Middleware/Driver\drv_tim.h:52:8: error: must use 'struct' tag to refer to type 'Struct_TIM_Manage_Object'
+   52 | extern Struct_TIM_Manage_Object TIM4_Manage_Object;
+      |        ^
+      |        struct 
+../User/Middleware/Driver\drv_tim.h:53:8: error: must use 'struct' tag to refer to type 'Struct_TIM_Manage_Object'
+   53 | extern Struct_TIM_Manage_Object TIM5_Manage_Object;
+      |        ^
+      |        struct 
+../User/Middleware/Driver\drv_tim.h:54:8: error: must use 'struct' tag to refer to type 'Struct_TIM_Manage_Object'
+   54 | extern Struct_TIM_Manage_Object TIM6_Manage_Object;
+      |        ^
+      |        struct 
+../User/Middleware/Driver\drv_tim.h:55:8: error: must use 'struct' tag to refer to type 'Struct_TIM_Manage_Object'
+   55 | extern Struct_TIM_Manage_Object TIM7_Manage_Object;
+      |        ^
+      |        struct 
+../User/Middleware/Driver\drv_tim.h:56:8: error: must use 'struct' tag to refer to type 'Struct_TIM_Manage_Object'
+   56 | extern Struct_TIM_Manage_Object TIM8_Manage_Object;
+      |        ^
+      |        struct 
+../User/Middleware/Driver\drv_tim.h:57:8: error: must use 'struct' tag to refer to type 'Struct_TIM_Manage_Object'
+   57 | extern Struct_TIM_Manage_Object TIM9_Manage_Object;
+      |        ^
+      |        struct 
+../User/Middleware/Driver\drv_tim.h:58:8: error: must use 'struct' tag to refer to type 'Struct_TIM_Manage_Object'
+   58 | extern Struct_TIM_Manage_Object TIM10_Manage_Object;
+      |        ^
+      |        struct 
+../User/Middleware/Driver\drv_tim.h:59:8: error: must use 'struct' tag to refer to type 'Struct_TIM_Manage_Object'
+   59 | extern Struct_TIM_Manage_Object TIM11_Manage_Object;
+      |        ^
+      |        struct 
+fatal error: too many errors emitted, stopping now [-ferror-limit=]
+20 errors generated.
+
+[2024-07-23 18:57:57]	compilation failed at : "d:\emmble-2024\2024-huawei\Centre\Core\Src\main.c", exit code: 1
+command: 
+  "D:\Keil5\keil5_anzhuangbao\ARM\ARMCLANG\bin\armclang.exe" --target=arm-arm-none-eabi -c -xc -std=c99 -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../User/Device -I../User/Interaction -I../User/Middleware/Algorithm -I../User/Middleware/Driver -I../User/Task -IRTE/_Centre_Hold -DUSE_HAL_DRIVER -DSTM32F105xC -mcpu=cortex-m3 -mlittle-endian -O3 -ffunction-sections -funsigned-char -fshort-enums -fshort-wchar -fno-rtti -w -g -o ./../MDK-ARM/Centre_Hold/.obj/__/Core/Src/main.o -MMD ./../Core/Src/main.c
+   at unify_builder.Program.compileByMulThread(Int32 thrNum, CmdInfo[] cmds_, List`1 errLogs)
+   at unify_builder.Program.Main(String[] args_)
+---
+In file included from ./../Core/Src/main.c:28:
+In file included from ../User/Task\tsk_config_and_callback.h:21:
+In file included from ../User/Interaction\ita_chariot.h:17:
+../User/Middleware/Driver\drv_uart.h:55:8: error: must use 'struct' tag to refer to type 'Struct_UART_Manage_Object'
+   55 | extern Struct_UART_Manage_Object UART1_Manage_Object;
+      |        ^
+      |        struct 
+../User/Middleware/Driver\drv_uart.h:56:8: error: must use 'struct' tag to refer to type 'Struct_UART_Manage_Object'
+   56 | extern Struct_UART_Manage_Object UART2_Manage_Object;
+      |        ^
+      |        struct 
+../User/Middleware/Driver\drv_uart.h:57:8: error: must use 'struct' tag to refer to type 'Struct_UART_Manage_Object'
+   57 | extern Struct_UART_Manage_Object UART3_Manage_Object;
+      |        ^
+      |        struct 
+../User/Middleware/Driver\drv_uart.h:58:8: error: must use 'struct' tag to refer to type 'Struct_UART_Manage_Object'
+   58 | extern Struct_UART_Manage_Object UART4_Manage_Object;
+      |        ^
+      |        struct 
+../User/Middleware/Driver\drv_uart.h:59:8: error: must use 'struct' tag to refer to type 'Struct_UART_Manage_Object'
+   59 | extern Struct_UART_Manage_Object UART5_Manage_Object;
+      |        ^
+      |        struct 
+../User/Middleware/Driver\drv_uart.h:60:8: error: must use 'struct' tag to refer to type 'Struct_UART_Manage_Object'
+   60 | extern Struct_UART_Manage_Object UART6_Manage_Object;
+      |        ^
+      |        struct 
+../User/Middleware/Driver\drv_uart.h:61:8: error: must use 'struct' tag to refer to type 'Struct_UART_Manage_Object'
+   61 | extern Struct_UART_Manage_Object UART7_Manage_Object;
+      |        ^
+      |        struct 
+../User/Middleware/Driver\drv_uart.h:62:8: error: must use 'struct' tag to refer to type 'Struct_UART_Manage_Object'
+   62 | extern Struct_UART_Manage_Object UART8_Manage_Object;
+      |        ^
+      |        struct 
+In file included from ./../Core/Src/main.c:28:
+In file included from ../User/Task\tsk_config_and_callback.h:21:
+In file included from ../User/Interaction\ita_chariot.h:18:
+../User/Middleware/Driver\drv_tim.h:49:8: error: must use 'struct' tag to refer to type 'Struct_TIM_Manage_Object'
+   49 | extern Struct_TIM_Manage_Object TIM1_Manage_Object;
+      |        ^
+      |        struct 
+../User/Middleware/Driver\drv_tim.h:50:8: error: must use 'struct' tag to refer to type 'Struct_TIM_Manage_Object'
+   50 | extern Struct_TIM_Manage_Object TIM2_Manage_Object;
+      |        ^
+      |        struct 
+../User/Middleware/Driver\drv_tim.h:51:8: error: must use 'struct' tag to refer to type 'Struct_TIM_Manage_Object'
+   51 | extern Struct_TIM_Manage_Object TIM3_Manage_Object;
+      |        ^
+      |        struct 
+../User/Middleware/Driver\drv_tim.h:52:8: error: must use 'struct' tag to refer to type 'Struct_TIM_Manage_Object'
+   52 | extern Struct_TIM_Manage_Object TIM4_Manage_Object;
+      |        ^
+      |        struct 
+../User/Middleware/Driver\drv_tim.h:53:8: error: must use 'struct' tag to refer to type 'Struct_TIM_Manage_Object'
+   53 | extern Struct_TIM_Manage_Object TIM5_Manage_Object;
+      |        ^
+      |        struct 
+../User/Middleware/Driver\drv_tim.h:54:8: error: must use 'struct' tag to refer to type 'Struct_TIM_Manage_Object'
+   54 | extern Struct_TIM_Manage_Object TIM6_Manage_Object;
+      |        ^
+      |        struct 
+../User/Middleware/Driver\drv_tim.h:55:8: error: must use 'struct' tag to refer to type 'Struct_TIM_Manage_Object'
+   55 | extern Struct_TIM_Manage_Object TIM7_Manage_Object;
+      |        ^
+      |        struct 
+../User/Middleware/Driver\drv_tim.h:56:8: error: must use 'struct' tag to refer to type 'Struct_TIM_Manage_Object'
+   56 | extern Struct_TIM_Manage_Object TIM8_Manage_Object;
+      |        ^
+      |        struct 
+../User/Middleware/Driver\drv_tim.h:57:8: error: must use 'struct' tag to refer to type 'Struct_TIM_Manage_Object'
+   57 | extern Struct_TIM_Manage_Object TIM9_Manage_Object;
+      |        ^
+      |        struct 
+../User/Middleware/Driver\drv_tim.h:58:8: error: must use 'struct' tag to refer to type 'Struct_TIM_Manage_Object'
+   58 | extern Struct_TIM_Manage_Object TIM10_Manage_Object;
+      |        ^
+      |        struct 
+../User/Middleware/Driver\drv_tim.h:59:8: error: must use 'struct' tag to refer to type 'Struct_TIM_Manage_Object'
+   59 | extern Struct_TIM_Manage_Object TIM11_Manage_Object;
+      |        ^
+      |        struct 
+fatal error: too many errors emitted, stopping now [-ferror-limit=]
+20 errors generated.
+
+[2024-07-26 11:23:17]	compilation failed at : "d:\emmble-2024\2024-huawei\Centre\Core\Src\main.c", exit code: 1
+command: 
+  "D:\Keil5\keil5_anzhuangbao\ARM\ARMCC\bin\armcc.exe" -c --apcs=interwork -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../User/Device -I../User/Interaction -I../User/Middleware/Algorithm -I../User/Middleware/Driver -I../User/Task -IRTE/_Centre_Hold -DUSE_HAL_DRIVER -DSTM32F105xC --cpu Cortex-M3 --li --c99 -O3 --split_sections --diag_suppress=1 --diag_suppress=1295 -g -o .\..\MDK-ARM\Centre_Hold\.obj\__\Core\Src\main.o --no_depend_system_headers --depend .\..\MDK-ARM\Centre_Hold\.obj\__\Core\Src\main.d .\..\Core\Src\main.c
+   at unify_builder.Program.compileByMulThread(Int32 thrNum, CmdInfo[] cmds_, List`1 errLogs)
+   at unify_builder.Program.Main(String[] args_)
+---
+"../User/Middleware/Driver/drv_uart.h", line 55: Error:  #20: identifier "Struct_UART_Manage_Object" is undefined
+  extern Struct_UART_Manage_Object UART1_Manage_Object;
+         ^
+"../User/Middleware/Driver/drv_uart.h", line 56: Error:  #20: identifier "Struct_UART_Manage_Object" is undefined
+  extern Struct_UART_Manage_Object UART2_Manage_Object;
+         ^
+"../User/Middleware/Driver/drv_uart.h", line 57: Error:  #20: identifier "Struct_UART_Manage_Object" is undefined
+  extern Struct_UART_Manage_Object UART3_Manage_Object;
+         ^
+"../User/Middleware/Driver/drv_uart.h", line 58: Error:  #20: identifier "Struct_UART_Manage_Object" is undefined
+  extern Struct_UART_Manage_Object UART4_Manage_Object;
+         ^
+"../User/Middleware/Driver/drv_uart.h", line 59: Error:  #20: identifier "Struct_UART_Manage_Object" is undefined
+  extern Struct_UART_Manage_Object UART5_Manage_Object;
+         ^
+"../User/Middleware/Driver/drv_uart.h", line 60: Error:  #20: identifier "Struct_UART_Manage_Object" is undefined
+  extern Struct_UART_Manage_Object UART6_Manage_Object;
+         ^
+"../User/Middleware/Driver/drv_uart.h", line 61: Error:  #20: identifier "Struct_UART_Manage_Object" is undefined
+  extern Struct_UART_Manage_Object UART7_Manage_Object;
+         ^
+"../User/Middleware/Driver/drv_uart.h", line 62: Error:  #20: identifier "Struct_UART_Manage_Object" is undefined
+  extern Struct_UART_Manage_Object UART8_Manage_Object;
+         ^
+"../User/Middleware/Driver/drv_tim.h", line 47: Error:  #20: identifier "Struct_TIM_Manage_Object" is undefined
+  extern Struct_TIM_Manage_Object TIM1_Manage_Object;
+         ^
+"../User/Middleware/Driver/drv_tim.h", line 48: Error:  #20: identifier "Struct_TIM_Manage_Object" is undefined
+  extern Struct_TIM_Manage_Object TIM2_Manage_Object;
+         ^
+"../User/Middleware/Driver/drv_tim.h", line 49: Error:  #20: identifier "Struct_TIM_Manage_Object" is undefined
+  extern Struct_TIM_Manage_Object TIM3_Manage_Object;
+         ^
+"../User/Middleware/Driver/drv_tim.h", line 50: Error:  #20: identifier "Struct_TIM_Manage_Object" is undefined
+  extern Struct_TIM_Manage_Object TIM4_Manage_Object;
+         ^
+"../User/Middleware/Driver/drv_tim.h", line 51: Error:  #20: identifier "Struct_TIM_Manage_Object" is undefined
+  extern Struct_TIM_Manage_Object TIM5_Manage_Object;
+         ^
+"../User/Middleware/Driver/drv_tim.h", line 52: Error:  #20: identifier "Struct_TIM_Manage_Object" is undefined
+  extern Struct_TIM_Manage_Object TIM6_Manage_Object;
+         ^
+"../User/Middleware/Driver/drv_tim.h", line 53: Error:  #20: identifier "Struct_TIM_Manage_Object" is undefined
+  extern Struct_TIM_Manage_Object TIM7_Manage_Object;
+         ^
+"../User/Middleware/Driver/drv_tim.h", line 54: Error:  #20: identifier "Struct_TIM_Manage_Object" is undefined
+  extern Struct_TIM_Manage_Object TIM8_Manage_Object;
+         ^
+"../User/Middleware/Driver/drv_tim.h", line 55: Error:  #20: identifier "Struct_TIM_Manage_Object" is undefined
+  extern Struct_TIM_Manage_Object TIM9_Manage_Object;
+         ^
+"../User/Middleware/Driver/drv_tim.h", line 56: Error:  #20: identifier "Struct_TIM_Manage_Object" is undefined
+  extern Struct_TIM_Manage_Object TIM10_Manage_Object;
+         ^
+"../User/Middleware/Driver/drv_tim.h", line 57: Error:  #20: identifier "Struct_TIM_Manage_Object" is undefined
+  extern Struct_TIM_Manage_Object TIM11_Manage_Object;
+         ^
+"../User/Middleware/Driver/drv_tim.h", line 58: Error:  #20: identifier "Struct_TIM_Manage_Object" is undefined
+  extern Struct_TIM_Manage_Object TIM12_Manage_Object;
+         ^
+"../User/Middleware/Driver/drv_tim.h", line 59: Error:  #20: identifier "Struct_TIM_Manage_Object" is undefined
+  extern Struct_TIM_Manage_Object TIM13_Manage_Object;
+         ^
+"../User/Middleware/Driver/drv_tim.h", line 60: Error:  #20: identifier "Struct_TIM_Manage_Object" is undefined
+  extern Struct_TIM_Manage_Object TIM14_Manage_Object;
+         ^
+"../User/Middleware/Algorithm/alg_fsm.h", line 41: Error:  #20: identifier "Enum_Status_Stage" is undefined
+      Enum_Status_Stage Status_Stage;
+      ^
+"../User/Middleware/Algorithm/alg_fsm.h", line 50: Error:  #20: identifier "class" is undefined
+  class Class_FSM
+  ^
+"../User/Middleware/Algorithm/alg_fsm.h", line 51: Error:  #65: expected a ";"
+  {
+  ^
+"../User/Middleware/Algorithm/alg_fsm.h", line 76: Warning:  #12-D: parsing restarts here after previous syntax error
+      uint8_t Now_Status_Serial;
+                               ^
+"../User/Middleware/Algorithm/alg_fsm.h", line 83: Error:  #169: expected a declaration
+  };
+  ^
+"../User/Middleware/Algorithm/alg_fsm.h", line 94: Error:  #65: expected a ";"
+  uint8_t Class_FSM::Get_Now_Status_Serial()
+                   ^
+"../User/Device/dvc_cargo.h", line 36: Error:  #20: identifier "Struct_Cargo" is undefined
+      Struct_Cargo* Next_Cargo;
+      ^
+"../User/Device/dvc_cargo.h", line 45: Error:  #20: identifier "class" is undefined
+  class Class_Cargo_List
+  ^
+"../User/Device/dvc_cargo.h", line 46: Error:  #65: expected a ";"
+  {
+  ^
+.\..\Core\Src\main.c: 1 warning, 30 errors
+
+[2024-07-26 11:24:02]	compilation failed at : "d:\emmble-2024\2024-huawei\Centre\Core\Src\main.c", exit code: 1
+command: 
+  "D:\Keil5\keil5_anzhuangbao\ARM\ARMCC\bin\armcc.exe" -c --apcs=interwork -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../User/Device -I../User/Interaction -I../User/Middleware/Algorithm -I../User/Middleware/Driver -I../User/Task -IRTE/_Centre_Hold -DUSE_HAL_DRIVER -DSTM32F105xC --cpu Cortex-M3 --li --c99 -O3 --split_sections -W --diag_suppress=1 --diag_suppress=1295 -g -o .\..\MDK-ARM\Centre_Hold\.obj\__\Core\Src\main.o --no_depend_system_headers --depend .\..\MDK-ARM\Centre_Hold\.obj\__\Core\Src\main.d .\..\Core\Src\main.c
+   at unify_builder.Program.compileByMulThread(Int32 thrNum, CmdInfo[] cmds_, List`1 errLogs)
+   at unify_builder.Program.Main(String[] args_)
+---
+"../User/Middleware/Driver/drv_uart.h", line 55: Error:  #20: identifier "Struct_UART_Manage_Object" is undefined
+  extern Struct_UART_Manage_Object UART1_Manage_Object;
+         ^
+"../User/Middleware/Driver/drv_uart.h", line 56: Error:  #20: identifier "Struct_UART_Manage_Object" is undefined
+  extern Struct_UART_Manage_Object UART2_Manage_Object;
+         ^
+"../User/Middleware/Driver/drv_uart.h", line 57: Error:  #20: identifier "Struct_UART_Manage_Object" is undefined
+  extern Struct_UART_Manage_Object UART3_Manage_Object;
+         ^
+"../User/Middleware/Driver/drv_uart.h", line 58: Error:  #20: identifier "Struct_UART_Manage_Object" is undefined
+  extern Struct_UART_Manage_Object UART4_Manage_Object;
+         ^
+"../User/Middleware/Driver/drv_uart.h", line 59: Error:  #20: identifier "Struct_UART_Manage_Object" is undefined
+  extern Struct_UART_Manage_Object UART5_Manage_Object;
+         ^
+"../User/Middleware/Driver/drv_uart.h", line 60: Error:  #20: identifier "Struct_UART_Manage_Object" is undefined
+  extern Struct_UART_Manage_Object UART6_Manage_Object;
+         ^
+"../User/Middleware/Driver/drv_uart.h", line 61: Error:  #20: identifier "Struct_UART_Manage_Object" is undefined
+  extern Struct_UART_Manage_Object UART7_Manage_Object;
+         ^
+"../User/Middleware/Driver/drv_uart.h", line 62: Error:  #20: identifier "Struct_UART_Manage_Object" is undefined
+  extern Struct_UART_Manage_Object UART8_Manage_Object;
+         ^
+"../User/Middleware/Driver/drv_tim.h", line 47: Error:  #20: identifier "Struct_TIM_Manage_Object" is undefined
+  extern Struct_TIM_Manage_Object TIM1_Manage_Object;
+         ^
+"../User/Middleware/Driver/drv_tim.h", line 48: Error:  #20: identifier "Struct_TIM_Manage_Object" is undefined
+  extern Struct_TIM_Manage_Object TIM2_Manage_Object;
+         ^
+"../User/Middleware/Driver/drv_tim.h", line 49: Error:  #20: identifier "Struct_TIM_Manage_Object" is undefined
+  extern Struct_TIM_Manage_Object TIM3_Manage_Object;
+         ^
+"../User/Middleware/Driver/drv_tim.h", line 50: Error:  #20: identifier "Struct_TIM_Manage_Object" is undefined
+  extern Struct_TIM_Manage_Object TIM4_Manage_Object;
+         ^
+"../User/Middleware/Driver/drv_tim.h", line 51: Error:  #20: identifier "Struct_TIM_Manage_Object" is undefined
+  extern Struct_TIM_Manage_Object TIM5_Manage_Object;
+         ^
+"../User/Middleware/Driver/drv_tim.h", line 52: Error:  #20: identifier "Struct_TIM_Manage_Object" is undefined
+  extern Struct_TIM_Manage_Object TIM6_Manage_Object;
+         ^
+"../User/Middleware/Driver/drv_tim.h", line 53: Error:  #20: identifier "Struct_TIM_Manage_Object" is undefined
+  extern Struct_TIM_Manage_Object TIM7_Manage_Object;
+         ^
+"../User/Middleware/Driver/drv_tim.h", line 54: Error:  #20: identifier "Struct_TIM_Manage_Object" is undefined
+  extern Struct_TIM_Manage_Object TIM8_Manage_Object;
+         ^
+"../User/Middleware/Driver/drv_tim.h", line 55: Error:  #20: identifier "Struct_TIM_Manage_Object" is undefined
+  extern Struct_TIM_Manage_Object TIM9_Manage_Object;
+         ^
+"../User/Middleware/Driver/drv_tim.h", line 56: Error:  #20: identifier "Struct_TIM_Manage_Object" is undefined
+  extern Struct_TIM_Manage_Object TIM10_Manage_Object;
+         ^
+"../User/Middleware/Driver/drv_tim.h", line 57: Error:  #20: identifier "Struct_TIM_Manage_Object" is undefined
+  extern Struct_TIM_Manage_Object TIM11_Manage_Object;
+         ^
+"../User/Middleware/Driver/drv_tim.h", line 58: Error:  #20: identifier "Struct_TIM_Manage_Object" is undefined
+  extern Struct_TIM_Manage_Object TIM12_Manage_Object;
+         ^
+"../User/Middleware/Driver/drv_tim.h", line 59: Error:  #20: identifier "Struct_TIM_Manage_Object" is undefined
+  extern Struct_TIM_Manage_Object TIM13_Manage_Object;
+         ^
+"../User/Middleware/Driver/drv_tim.h", line 60: Error:  #20: identifier "Struct_TIM_Manage_Object" is undefined
+  extern Struct_TIM_Manage_Object TIM14_Manage_Object;
+         ^
+"../User/Middleware/Algorithm/alg_fsm.h", line 41: Error:  #20: identifier "Enum_Status_Stage" is undefined
+      Enum_Status_Stage Status_Stage;
+      ^
+"../User/Middleware/Algorithm/alg_fsm.h", line 50: Error:  #20: identifier "class" is undefined
+  class Class_FSM
+  ^
+"../User/Middleware/Algorithm/alg_fsm.h", line 51: Error:  #65: expected a ";"
+  {
+  ^
+"../User/Middleware/Algorithm/alg_fsm.h", line 83: Error:  #169: expected a declaration
+  };
+  ^
+"../User/Middleware/Algorithm/alg_fsm.h", line 94: Error:  #65: expected a ";"
+  uint8_t Class_FSM::Get_Now_Status_Serial()
+                   ^
+"../User/Device/dvc_cargo.h", line 36: Error:  #20: identifier "Struct_Cargo" is undefined
+      Struct_Cargo* Next_Cargo;
+      ^
+"../User/Device/dvc_cargo.h", line 45: Error:  #20: identifier "class" is undefined
+  class Class_Cargo_List
+  ^
+"../User/Device/dvc_cargo.h", line 46: Error:  #65: expected a ";"
+  {
+  ^
+.\..\Core\Src\main.c: 0 warnings, 30 errors
+

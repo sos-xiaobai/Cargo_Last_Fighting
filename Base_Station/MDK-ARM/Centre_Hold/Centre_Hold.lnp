@@ -1,0 +1,1 @@
+--cpu Cortex-M3 --scatter "d:/emmble-2024/2024-huawei/Centre/MDK-ARM/Centre_Hold/Centre_Hold.sct" --strict --summary_stderr --info summarysizes --map --xref --callgraph --symbols --info sizes --info totals --info unused --info veneers --list .\..\MDK-ARM\Centre_Hold\Centre_Hold.map
