@@ -108,7 +108,9 @@ public:
     inline float Get_Now_Velocity_X();
     inline float Get_Now_Velocity_Y();
     inline Enum_Chassis_Control_Type Get_Chassis_Control_Type();
-
+    
+    void Speed_Resolution();
+    void Navigation_Calibrate();
     void TIM_Calculate_PeriodElapsedCallback();
     void TIM1ms_Chassis_Posture_PeriodElapsedCallback();
 
@@ -198,10 +200,6 @@ protected:
     float Calibrate_Acceleration_Y_Offset = 0.0f;
     float Calibrate_Acceleration_Y_Max = 0.0f;
     float Calibrate_Acceleration_Y_Min = 0.0f;
-
-    //内部函数
-    void Speed_Resolution();
-    void Navigation_Calibrate();
 };
 
 /* Exported variables --------------------------------------------------------*/

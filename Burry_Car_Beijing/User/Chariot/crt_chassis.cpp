@@ -41,6 +41,9 @@
  */
 void Class_Chassis::Init()
 {
+    // IMU初始化
+    IMU.Init();
+
     //斜坡函数加减速速度X  控制周期1ms
     Slope_Velocity_X.Init(0.004f,0.008f);
     //斜坡函数加减速速度Y  控制周期1ms
@@ -249,8 +252,6 @@ void Class_Chassis::TIM_Calculate_PeriodElapsedCallback()
     Slope_Omega.TIM_Calculate_PeriodElapsedCallback();
 
     #endif
-    //速度解算
-    Speed_Resolution();
 
 }
 

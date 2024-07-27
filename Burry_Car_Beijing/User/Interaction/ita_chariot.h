@@ -27,6 +27,7 @@
 #include "dvc_cargo.h"
 #include "dvc.servo.h"
 #include "dvc_WS2812.h"
+#include "dvc_miniPC.h"
 #include "alg_fifo.h"
 
 /* Exported macros -----------------------------------------------------------*/
@@ -84,6 +85,7 @@ class Class_Chariot
 public:
 
     Class_Chassis Chassis;  //底盘
+    Class_MiniPC MiniPC; //k210
     CircularFifo Input_Cargo_FIFO; //待入库货物FIFO
     CircularFifo Output_Cargo_FIFO; //待出库货物FIFO
     Class_Cargo_List Cargo_List; //已经入库的货物链表

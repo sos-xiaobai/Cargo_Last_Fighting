@@ -351,6 +351,7 @@ void Class_Chariot::Init(UART_HandleTypeDef *huart)
     Servo[0].Init(&htim14, TIM_CHANNEL_1);
     Servo[1].Init(&htim13, TIM_CHANNEL_1);
     Servo[2].Init(&htim5, TIM_CHANNEL_3);  
+    Servo[3].Init(&htim5, TIM_CHANNEL_4);
 
     #else if (OLD_CAR)
     {
@@ -366,21 +367,21 @@ void Class_Chariot::Init(UART_HandleTypeDef *huart)
     }
     #endif
 
-    //货物列表初始化
+    // 底盘初始化
+    Chassis.Init();
+
+    // k210 初始化
+    MiniPC.Init(&huart5, 0, 0);
+
+    // 货物列表初始化
     Cargo_List.Init();
     Now_Cargo_Number = 0;
 
-    // 底盘初始化
+    // FIFO初始化
     Fifo_Init(&Input_Cargo_FIFO, sizeof(Struct_Cargo), 10);
     Fifo_Init(&Output_Cargo_FIFO, sizeof(Struct_Cargo), 10);
 
-    //IMU初始化
-    Chassis.IMU.Init();
-
-    //底盘初始化
-    Chassis.Init();
-
-    //控制状态初始化
+    // 控制状态初始化
     Control_Status = Chariot_Disable_Status; //控制状态
 }
 

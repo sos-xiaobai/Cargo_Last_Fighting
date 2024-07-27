@@ -112,8 +112,50 @@ void UART2_Buluteeth_Callback(uint8_t *Buffer, uint16_t Length)
 
 void UART5_K210_Callback(uint8_t *Buffer, uint16_t Length)
 {
-    
+    Chariot.MiniPC.UART_RxCpltCallback(Buffer);
 }
+
+
+float ptheta[3];
+bool Servo_Caculate(float x, float y, float angle)
+{
+    float tmp_ptheta[3];
+	float L1 = 0.105;  //杆长 单位/m
+	float L2 = 0.09;
+	float L3 = 0.14;  //0.245 伸长
+	float alpha, beta, lp, Bx, By;
+
+    Math_Constrain(&angle, -90.0f, 90.0f);
+    angle = angle * PI / 180.0f;
+
+    Bx=x-L3*cos(angle);
+    By=y-L3*sin(angle);
+
+	lp=Bx*Bx+By*By;
+	if (sqrt(lp)>=L1+L2 || sqrt(lp)<=fabs(L1-L2))
+		return 0;
+	alpha = atan2(By,Bx);
+	beta = acos((L1*L1+lp-L2*L2)/(2*L1*sqrt(lp))); //这里使用弧度制
+
+	tmp_ptheta[0] = -(PI/2.0-alpha-beta)*180/PI;
+	tmp_ptheta[1] = (acos((L1*L1+L2*L2-lp)/(2*L1*L2))-PI)*180/PI;
+    tmp_ptheta[2] = (angle*180.0f/PI - ptheta[0] - ptheta[1] - 90.0f);
+
+    //限制角度
+    // for(auto i = 0; i < 3; i++)
+    // {
+    //     if(tmp_ptheta[i] > 90.0f || tmp_ptheta[i] < -90.0f)
+    //         return 0;
+    // }
+
+    //赋值给全局变量
+    for(auto i = 0; i < 3; i++)
+    {
+        ptheta[i] = tmp_ptheta[i];
+    }
+	return 1;
+}
+
 
 /**
  * @brief 初始化任务
@@ -137,7 +179,7 @@ void Task_Init()
     //初始化串口接受中断函数
     UART_Init(&huart1, UART1_Esp32_Callback, 22);
     UART_Init(&huart2, UART2_Buluteeth_Callback, 3);
-    UART_Init(&huart5, UART5_K210_Callback, 20);
+    UART_Init(&huart5, UART5_K210_Callback, 11);
 
     /********************************* 设备层初始化 *********************************/
 
@@ -184,9 +226,6 @@ void Task_Init()
  * @brief TIM6任务回调函数
  *
  */
-float test_angle1 = -10.0f;
-float test_angle2 = 0;
-float test_angle3 = 30;
 bool test_flag = 1;
 uint8_t Reset_flag = 0;
 void TIM6_Task1ms_PeriodElapsedCallback()
@@ -194,7 +233,7 @@ void TIM6_Task1ms_PeriodElapsedCallback()
    // HAL_GPIO_WritePin(WAKE_GPIO_Port, WAKE_Pin, GPIO_PIN_SET);
    HAL_GPIO_WritePin(TRIG_GPIO_Port, TRIG_Pin, GPIO_PIN_RESET);
    //任务状态机
-   FSM_Chariot.Reload_TIM_Status_PeriodElapsedCallback();
+//   FSM_Chariot.Reload_TIM_Status_PeriodElapsedCallback();
 
    // IMU任务
    FSM_Chariot.Chariot->Chassis.IMU.TIM_Calculate_PeriodElapsedCallback();    
@@ -208,18 +247,48 @@ void TIM6_Task1ms_PeriodElapsedCallback()
 }
 
 
-
 /**
  * @brief TIM7任务回调函数
  *
  */
+float test_angle1 = 90.0f;
+float test_angle2 = 80.0f;
+float test_angle3 = 90.0f;
+float test_angle4 = 80.0f;
+static uint32_t cnt = 0;
+float x = 0.0f;
+float y = 0.0f;
+float angle = 0.0f;
+bool Success_Flag = 0;
 void TIM7_Task5ms_PeriodElapsedCallback()
 {
     /****************************** 交互层回调函数 1ms *****************************************/
     
-  //底盘速度解算
-  Chariot.Chassis.TIM_Calculate_PeriodElapsedCallback();
+    //底盘速度解算
+    Chariot.Chassis.Speed_Resolution();
 
+    //底盘距离环PID
+    Chariot.Chassis.TIM_Calculate_PeriodElapsedCallback();
+
+    //k210距离环PID
+    Chariot.MiniPC.TIM_Calculate_PeriodElapsedCallback();
+    Chariot.Chassis.Set_Target_Velocity_X(Chariot.MiniPC.Get_target_x_speed());
+    Chariot.Chassis.Set_Target_Velocity_Y(Chariot.MiniPC.Get_target_y_speed());
+
+    //k210状态
+    Chariot.MiniPC.TIM_50ms_Alive_PeriodElapsedCallback();
+  
+    //90 -80  90 -85 初始
+    //90 90 -55  60 放一层货架
+    //90  80  90  80 中间
+    //0.100000001  0.150000006  0
+    cnt++;
+    Chariot.Servo[0].Set_Angle(test_angle1);
+    Chariot.Servo[1].Set_Angle(-1.0f*ptheta[0]); //-1
+//        if(cnt>150)
+    Chariot.Servo[2].Set_Angle(ptheta[1]);
+    Chariot.Servo[3].Set_Angle(ptheta[2]);
+    Success_Flag = Servo_Caculate(x, y, angle);
 //    //四电机PID
     for(auto i = 0; i < 4; i++)
      Chariot.Chassis.Motor[i].TIM5ms_Motor_Calculate_PeriodElapsedCallback();

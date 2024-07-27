@@ -54,4 +54,6 @@ public:
     Struct_Cargo* Exist_Cargo(uint8_t Code[4]);
 };
 
+
+
 #endif

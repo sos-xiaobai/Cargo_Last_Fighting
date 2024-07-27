@@ -32,6 +32,14 @@ private:
 
 void Class_Servo::Set_Angle(float __Angle)
 {
+    if(__Angle>90)
+    {
+        __Angle = 90;
+    }
+    else if(__Angle<-90)
+    {
+        __Angle = -90;
+    }
     Angle = __Angle;
     __HAL_TIM_SET_COMPARE(TIM_PWMHandle, Channel, Angle_to_Compare(Angle));
 }

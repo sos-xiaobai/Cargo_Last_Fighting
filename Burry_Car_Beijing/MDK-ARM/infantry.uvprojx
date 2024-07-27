@@ -716,6 +716,11 @@
               <FileType>1</FileType>
               <FilePath>..\User\Device\dvc_ws2812.c</FilePath>
             </File>
+            <File>
+              <FileName>dvc_miniPC.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\User\Device\dvc_miniPC.cpp</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
