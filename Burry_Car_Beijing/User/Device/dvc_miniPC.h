@@ -17,9 +17,8 @@ enum Enum_MiniPC_Status
 struct Struct_MiniPC_UART_Data
 {
     uint8_t head;
-    float x;
-    uint8_t reserved;
-    float y;
+    int16_t x;
+    int16_t y;
     uint8_t tail;
 }__attribute__((packed));
 

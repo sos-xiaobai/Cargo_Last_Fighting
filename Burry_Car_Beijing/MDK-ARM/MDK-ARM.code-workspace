@@ -4,6 +4,16 @@
             "path": "."
         }
     ],
-    "settings": {},
+    "settings": {
+        "MicroPython.executeButton": [
+            {
+                "text": "▶",
+                "tooltip": "运行",
+                "alignment": "left",
+                "command": "extension.executeFile",
+                "priority": 3.5
+            }
+        ]
+    },
     "extensions": {}
 }

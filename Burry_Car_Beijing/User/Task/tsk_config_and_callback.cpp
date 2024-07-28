@@ -179,7 +179,7 @@ void Task_Init()
     //初始化串口接受中断函数
     UART_Init(&huart1, UART1_Esp32_Callback, 22);
     UART_Init(&huart2, UART2_Buluteeth_Callback, 3);
-    UART_Init(&huart5, UART5_K210_Callback, 11);
+    UART_Init(&huart5, UART5_K210_Callback, 6);
 
     /********************************* 设备层初始化 *********************************/
 
@@ -263,12 +263,13 @@ bool Success_Flag = 0;
 void TIM7_Task5ms_PeriodElapsedCallback()
 {
     /****************************** 交互层回调函数 1ms *****************************************/
-    
+    static uint16_t cnt=0;
+	cnt++;
     //底盘速度解算
     Chariot.Chassis.Speed_Resolution();
 
     //底盘距离环PID
-    Chariot.Chassis.TIM_Calculate_PeriodElapsedCallback();
+    //Chariot.Chassis.TIM_Calculate_PeriodElapsedCallback();
 
     //k210距离环PID
     Chariot.MiniPC.TIM_Calculate_PeriodElapsedCallback();
@@ -276,7 +277,12 @@ void TIM7_Task5ms_PeriodElapsedCallback()
     Chariot.Chassis.Set_Target_Velocity_Y(Chariot.MiniPC.Get_target_y_speed());
 
     //k210状态
-    Chariot.MiniPC.TIM_50ms_Alive_PeriodElapsedCallback();
+    if(cnt>200)
+    {
+	     Chariot.MiniPC.TIM_50ms_Alive_PeriodElapsedCallback();
+	    cnt=0;
+    }
+   
   
     //90 -80  90 -85 初始
     //90 90 -55  60 放一层货架
@@ -298,13 +304,14 @@ void TIM7_Task5ms_PeriodElapsedCallback()
       // 给另一台车发送当前小车状态
     Chariot.UART_Transmit_Status();
 }
-
+uint8_t dddd=0;
 /**
  * @brief 前台循环任务
  *
  */
 void Task_Loop()
 {
+    HAL_UART_Transmit(&huart5,&dddd,1,50);
     //喂狗
     HAL_IWDG_Refresh(&hiwdg);
 }

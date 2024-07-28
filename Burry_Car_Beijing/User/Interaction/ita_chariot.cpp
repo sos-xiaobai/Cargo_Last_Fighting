@@ -199,7 +199,7 @@ bool Class_Chariot::Burry_Output_Cargo_1(uint16_t __time_cnt)
     if(__time_cnt >= 2000)
     {
         Servo[0].Set_Angle(-5);
-        return ture;
+        return true;
     }
     return false;
     #elif defined(NEW_CAR)

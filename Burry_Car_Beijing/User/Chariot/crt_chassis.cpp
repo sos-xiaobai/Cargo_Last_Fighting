@@ -44,30 +44,29 @@ void Class_Chassis::Init()
     // IMU初始化
     IMU.Init();
 
-    //斜坡函数加减速速度X  控制周期1ms
-    Slope_Velocity_X.Init(0.004f,0.008f);
-    //斜坡函数加减速速度Y  控制周期1ms
-    Slope_Velocity_Y.Init(0.004f,0.008f);
-    //斜坡函数加减速角速度
+    // 斜坡函数加减速速度X  控制周期1ms
+    Slope_Velocity_X.Init(0.004f, 0.008f);
+    // 斜坡函数加减速速度Y  控制周期1ms
+    Slope_Velocity_Y.Init(0.004f, 0.008f);
+    // 斜坡函数加减速角速度
     Slope_Omega.Init(0.05f, 0.05f);
 
-    //各个PID初始化
-    Position_X_PID.Init(8, 0, 0, 0, 0, 2, 0, 0, 0, 0.005, 0);
-    Position_Y_PID.Init(8, 0, 0, 0, 0, 2 , 0, 0, 0, 0.005, 0);
-    Position_Yaw_PID.Init(0.1, 0, 0, 0, 10, 0 , 0, 0, 0, 0.005, 0);
+    // 各个PID初始化
+    Position_X_PID.Init(10, 0, 0, 0, 0, 0, 0, 0, 0, 0.005, 0);
+    Position_Y_PID.Init(10, 0, 0, 0, 0, 0, 0, 0, 0, 0.005, 0);
+    Position_Yaw_PID.Init(0.1, 0, 0, 0, 0, 0, 0, 0, 0, 0.005, 0);
 
+    // 电机初始化
+    Motor[0].Init(&htim12, &htim2, TIM_CHANNEL_1, TIM_CHANNEL_2, 5000, 2484);
+    Motor[1].Init(&htim8, &htim1, TIM_CHANNEL_1, TIM_CHANNEL_2, 5000, 2471);
+    Motor[2].Init(&htim8, &htim4, TIM_CHANNEL_3, TIM_CHANNEL_4, 5000, 2494);
+    Motor[3].Init(&htim5, &htim3, TIM_CHANNEL_1, TIM_CHANNEL_2, 20000, 2468);
 
-    //电机初始化
-    Motor[0].Init(&htim12, &htim2, TIM_CHANNEL_1, TIM_CHANNEL_2, 5000, 1315);
-    Motor[1].Init(&htim8, &htim1, TIM_CHANNEL_1, TIM_CHANNEL_2, 5000, 1315);
-    Motor[2].Init(&htim8,&htim4,TIM_CHANNEL_3,TIM_CHANNEL_4,5000,1315);
-    Motor[3].Init(&htim5,&htim3,TIM_CHANNEL_1,TIM_CHANNEL_2,20000,1315);
-
-    //电机PID初始化
-    Motor[0].Speed_PID.Init(800, 500, 0, 0, 1500, 4999 , 0, 0, 0, 0.005, 0);
-    Motor[1].Speed_PID.Init(800, 500, 0, 0, 1500, 4999 , 0, 0, 0, 0.005, 0);
-    Motor[2].Speed_PID.Init(800, 500, 0, 0, 1500, 4999 , 0, 0, 0, 0.005, 0);
-    Motor[3].Speed_PID.Init(800, 500, 0, 0, 1500, 4999 , 0, 0, 0, 0.005, 0);
+    // 电机PID初始化
+    Motor[0].Speed_PID.Init(1300, 1200, 0, 0, 1500, 4999, 0, 0, 0, 0.005, 0);
+    Motor[1].Speed_PID.Init(1300, 1200, 0, 0, 1500, 4999, 0, 0, 0, 0.005, 0);
+    Motor[2].Speed_PID.Init(1300, 1200, 0, 0, 1500, 4999, 0, 0, 0, 0.005, 0);
+    Motor[3].Speed_PID.Init(4500, 2200, 0, 0, 5000, 20000, 0, 0, 0, 0.005, 0);
 }
 
 
