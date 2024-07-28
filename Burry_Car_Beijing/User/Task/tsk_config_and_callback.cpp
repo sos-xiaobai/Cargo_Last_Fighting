@@ -260,49 +260,59 @@ float x = 0.0f;
 float y = 0.0f;
 float angle = 0.0f;
 bool Success_Flag = 0;
+
+float astart_test_x = 1.0f;
+float astart_test_y = 1.0f;
+
 void TIM7_Task5ms_PeriodElapsedCallback()
 {
     /****************************** 交互层回调函数 1ms *****************************************/
     static uint16_t cnt=0;
 	cnt++;
-    //底盘速度解算
-    Chariot.Chassis.Speed_Resolution();
+
+    //底盘A*算法
+    Chariot.Astart.AStar_Calulate_CallBack(Chariot.Chassis.Get_Now_Position_X(), Chariot.Chassis.Get_Now_Position_Y(), astart_test_x,astart_test_x);
+    Chariot.Chassis.Set_Target_Position_X(Chariot.Astart.Get_Tmp_Target_X());
+    Chariot.Chassis.Set_Target_Position_Y(Chariot.Astart.Get_Tmp_Target_Y());
 
     //底盘距离环PID
-    //Chariot.Chassis.TIM_Calculate_PeriodElapsedCallback();
+    Chariot.Chassis.TIM_Calculate_PeriodElapsedCallback();
 
     //k210距离环PID
-    Chariot.MiniPC.TIM_Calculate_PeriodElapsedCallback();
-    Chariot.Chassis.Set_Target_Velocity_X(Chariot.MiniPC.Get_target_x_speed());
-    Chariot.Chassis.Set_Target_Velocity_Y(Chariot.MiniPC.Get_target_y_speed());
+    // Chariot.MiniPC.TIM_Calculate_PeriodElapsedCallback();
+    // Chariot.Chassis.Set_Target_Velocity_X(Chariot.MiniPC.Get_target_x_speed());
+    // Chariot.Chassis.Set_Target_Velocity_Y(Chariot.MiniPC.Get_target_y_speed());
 
-    //k210状态
-    if(cnt>200)
-    {
-	     Chariot.MiniPC.TIM_50ms_Alive_PeriodElapsedCallback();
-	    cnt=0;
-    }
+    //底盘速度解算
+    Chariot.Chassis.Speed_Resolution();
    
-  
     //90 -80  90 -85 初始
     //90 90 -55  60 放一层货架
     //90  80  90  80 中间
     //0.100000001  0.150000006  0
-    cnt++;
-    Chariot.Servo[0].Set_Angle(test_angle1);
-    Chariot.Servo[1].Set_Angle(-1.0f*ptheta[0]); //-1
-//        if(cnt>150)
-    Chariot.Servo[2].Set_Angle(ptheta[1]);
-    Chariot.Servo[3].Set_Angle(ptheta[2]);
-    Success_Flag = Servo_Caculate(x, y, angle);
-//    //四电机PID
-    for(auto i = 0; i < 4; i++)
-     Chariot.Chassis.Motor[i].TIM5ms_Motor_Calculate_PeriodElapsedCallback();
+//     cnt++;
+//     Chariot.Servo[0].Set_Angle(test_angle1);
+//     Chariot.Servo[1].Set_Angle(-1.0f*ptheta[0]); //-1
+//         if(cnt>150)
+//     Chariot.Servo[2].Set_Angle(ptheta[1]);
+//     Chariot.Servo[3].Set_Angle(ptheta[2]);
+//     Success_Flag = Servo_Caculate(x, y, angle);
+
+    //四电机速度环PID
+   for(auto i = 0; i < 4; i++)
+    Chariot.Chassis.Motor[i].TIM5ms_Motor_Calculate_PeriodElapsedCallback();
     
     /****************************** 驱动层回调函数 1ms *****************************************/ 
   
-      // 给另一台车发送当前小车状态
+    // 给另一台车发送当前小车状态
     Chariot.UART_Transmit_Status();
+
+    //k210状态
+    if(cnt>200)
+    {
+	    Chariot.MiniPC.TIM_50ms_Alive_PeriodElapsedCallback();
+	    cnt=0;
+    }
 }
 uint8_t dddd=0;
 /**

@@ -13,10 +13,18 @@ enum Enum_MiniPC_Status
     MiniPC_Enable_Status,
 };
 
+enum Enum_Sheet_Numbers : uint8_t
+{
+    Sheet_Number_One = 0,
+    Sheet_Number_Two,
+    Sheet_Number_Three,
+    Sheet_Number_Four,
+};
 
 struct Struct_MiniPC_UART_Data
 {
     uint8_t head;
+    uint8_t sheet;
     int16_t x;
     int16_t y;
     uint8_t tail;
@@ -58,9 +66,10 @@ class Class_MiniPC
 
     float target_x;
     float target_y;
-
+    
     float now_x;
     float now_y;
+    Enum_Sheet_Numbers sheet;
 
     float target_x_speed;
     float target_y_speed;

@@ -74,6 +74,14 @@ void Error_Handler(void);
 #define BoardC_CAN1_Tx_GPIO_Port GPIOD
 #define WAKE_Pin GPIO_PIN_11
 #define WAKE_GPIO_Port GPIOA
+#define LEFT_Pin GPIO_PIN_0
+#define LEFT_GPIO_Port GPIOF
+#define DOWN_Pin GPIO_PIN_2
+#define DOWN_GPIO_Port GPIOF
+#define RIGHT_Pin GPIO_PIN_1
+#define RIGHT_GPIO_Port GPIOF
+#define UP_Pin GPIO_PIN_3
+#define UP_GPIO_Port GPIOF
 #define RSTN_IST8310_Pin GPIO_PIN_6
 #define RSTN_IST8310_GPIO_Port GPIOG
 #define IMU_PWM_Pin GPIO_PIN_6

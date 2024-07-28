@@ -69,7 +69,6 @@ public:
     //四个电机
     Class_Motor Motor[4];
 
-
     //IMU
     Class_IMU IMU;
 
@@ -118,9 +117,9 @@ protected:
     //初始化相关常量
 
     //速度X限制
-    float Velocity_X_Max = 0.34f;
+    float Velocity_X_Max = 0.1f;
     //速度Y限制
-    float Velocity_Y_Max = 0.34f;
+    float Velocity_Y_Max = 0.1f;
     //角速度限制
     float Omega_Max = 4.0f;
 

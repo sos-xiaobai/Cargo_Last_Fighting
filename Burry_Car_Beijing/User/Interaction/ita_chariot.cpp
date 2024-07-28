@@ -373,6 +373,9 @@ void Class_Chariot::Init(UART_HandleTypeDef *huart)
     // k210 初始化
     MiniPC.Init(&huart5, 0, 0);
 
+    // A*算法初始化 步长0.01m 4m*4m 地图最大范围
+    Astart.Init(0.05,4,4);
+
     // 货物列表初始化
     Cargo_List.Init();
     Now_Cargo_Number = 0;
@@ -576,12 +579,18 @@ void Class_FSM_Chariot_Control::Reload_TIM_Status_PeriodElapsedCallback()
             // 如果另一个小车不busy 则开始导航 设置目标点
             if(Chariot->Get_Another_Chariot_Status()==Chariot_Free_Status)
             {
-                Chariot->Chassis.Set_Target_Position_X(-1.0f*(Chariot->Now_Cargo.Position_X-48));
-                #ifdef OLD_CAR
-                Chariot->Chassis.Set_Target_Position_Y(-1.0f*(Chariot->Now_Cargo.Position_Y-48));          
-                #elif defined(NEW_CAR)
-                Chariot->Chassis.Set_Target_Position_Y((Chariot->Now_Cargo.Position_Y-48));
-                #endif
+                // 通过A*算法计算路径 获得下一周期目标点
+                Chariot->Astart.AStar_Calulate_CallBack(Chariot->Chassis.Get_Now_Position_X(), Chariot->Chassis.Get_Now_Position_Y(), Chariot->Now_Cargo.Position_X, Chariot->Now_Cargo.Position_Y);
+                Chariot->Chassis.Set_Target_Position_X(Chariot->Astart.Get_Tmp_Target_X());
+                Chariot->Chassis.Set_Target_Position_Y(Chariot->Astart.Get_Tmp_Target_Y());
+
+                // Chariot->Chassis.Set_Target_Position_X(-1.0f*(Chariot->Now_Cargo.Position_X-48));
+                // #ifdef OLD_CAR
+                // Chariot->Chassis.Set_Target_Position_Y(-1.0f*(Chariot->Now_Cargo.Position_Y-48));          
+                // #elif defined(NEW_CAR)
+                // Chariot->Chassis.Set_Target_Position_Y((Chariot->Now_Cargo.Position_Y-48));
+                // #endif
+
                 Chariot->Chassis.Set_Target_Angle(0);
 
                 // 到达目标点 跳转到下一个状态
