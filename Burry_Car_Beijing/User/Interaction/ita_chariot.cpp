@@ -55,6 +55,10 @@ void Class_Chariot::Init_Position()
     //     Servo[3].Set_Angle(0);
     // }
 }
+//yaw上电固定45°
+//k210 -90到83
+
+
 
 float hi_angle = 45;
 float low_angle = 15;
@@ -347,33 +351,37 @@ void Class_Chariot::Init(UART_HandleTypeDef *huart)
 
     // 舵机初始化
     #ifdef NEW_CAR
-
-    Servo[0].Init(&htim14, TIM_CHANNEL_1);
-    Servo[1].Init(&htim13, TIM_CHANNEL_1);
-    Servo[2].Init(&htim5, TIM_CHANNEL_3);  
-    Servo[3].Init(&htim5, TIM_CHANNEL_4);
-
-    #else if (OLD_CAR)
     {
         Servo[0].Init(&htim14, TIM_CHANNEL_1);
         Servo[1].Init(&htim13, TIM_CHANNEL_1);
-        Servo[2].Init(&htim5, TIM_CHANNEL_3);
-        Servo[3].Init(&htim5, TIM_CHANNEL_4);   
+        Servo[2].Init(&htim5, TIM_CHANNEL_3);  
+        Servo[3].Init(&htim5, TIM_CHANNEL_4);
+        Servo[4].Init(&htim10, TIM_CHANNEL_1);  //k210
+        Servo[5].Init(&htim11, TIM_CHANNEL_1);   //yaw轴    
 
-        Servo[0].Set_Angle(20);
-        Servo[1].Set_Angle(0);
-        Servo[2].Set_Angle(60);
-        Servo[3].Set_Angle(30);         
+        Servo[5].Set_Angle(-90);    
+    }
+    #else if (OLD_CAR)
+    {
+        // Servo[0].Init(&htim14, TIM_CHANNEL_1);
+        // Servo[1].Init(&htim13, TIM_CHANNEL_1);
+        // Servo[2].Init(&htim5, TIM_CHANNEL_3);
+        // Servo[3].Init(&htim5, TIM_CHANNEL_4);   
+        //Servo[4].Init(&htim10, TIM_CHANNEL_1); //yaw轴
+        Servo[5].Init(&htim11, TIM_CHANNEL_1); //k210
+
+        // Servo[5].Set_Angle(0);    
     }
     #endif
-
-    // 底盘初始化
-    Chassis.Init();
 
     // k210 初始化
     MiniPC.Init(&huart5, 0, 0);
 
-    // A*算法初始化 步长0.01m 4m*4m 地图最大范围
+    // 底盘初始化
+    Chassis.Init();
+    Chassis.MiniPC = &MiniPC;
+
+    // A*算法初始化 步长0.05m 4m*4m 地图最大范围
     Astart.Init(0.05,4,4);
 
     // 货物列表初始化
@@ -412,6 +420,68 @@ uint8_t Class_Chariot::Jundge_Cargo()
     //     return 1;
     // }
     // return 0;
+}
+
+
+/**
+ * @brief 舵机计算
+ * 
+ * @param x x坐标 单位m
+ * @param y y坐标 单位m
+ * @param angle 角度 角度制
+ * @return true 计算成功
+ * @return false 计算失败
+ */
+bool Class_Chariot::Servo_Caculate(float x, float y, float angle)
+{
+    #ifdef NWE_CAR
+	float L1 = 0.105;  //杆长 单位/m 靠近底座的杆
+	float L2 = 0.09;
+	float L3 = 0.14;  //0.245 伸长
+    #elif defined(OLD_CAR)
+    float L1 = 0.105;  //杆长 单位/m 靠近底座的杆
+    float L2 = 0.095;
+    float L3 = 0.12;  //0.245 伸长
+    #endif
+
+    float tmp_ptheta[3];
+	float alpha, beta, lp, Bx, By;
+    Math_Constrain(&angle, -180.0f, 180.0f);
+    angle = angle * PI / 180.0f;
+
+    Bx=x-L3*cos(angle);
+    By=y-L3*sin(angle);
+
+	lp=Bx*Bx+By*By;
+	if (sqrt(lp)>L1+L2 || sqrt(lp)<fabs(L1-L2))
+		return 0;
+	alpha = atan2(By,Bx);
+	beta = acos((L1*L1+lp-L2*L2)/(2*L1*sqrt(lp))); //这里使用弧度制
+
+	tmp_ptheta[0] = -(PI/2.0-alpha-beta)*180/PI;
+	tmp_ptheta[1] = (acos((L1*L1+L2*L2-lp)/(2*L1*L2))-PI)*180/PI;
+    tmp_ptheta[2] = (angle*180.0f/PI - tmp_ptheta[0] - tmp_ptheta[1] - 90.0f);
+
+    #ifdef OLD_CAR
+    {
+        //正负号还需要商榷
+        Servo[1].Set_Angle(-1.0f*tmp_ptheta[2]);
+        Servo[2].Set_Angle(-1.0f*tmp_ptheta[1]);
+        Servo[3].Set_Angle(tmp_ptheta[0]);
+        //-0.32 0 180 初始位置
+        //0.07 0.1  0  中间 
+        //0.2 0.17 17 高层放置
+        //0.2 -0.05 0  底层放置
+    }
+    #else if defined(NEW_CAR)
+    {
+        Servo[1].Set_Angle(-1.0f*tmp_ptheta[0]);
+        Servo[2].Set_Angle(tmp_ptheta[1]);
+        Servo[3].Set_Angle(tmp_ptheta[2]);
+    }
+    #endif
+
+	return 1;
 }
 
 void Class_Chariot::Output_Cargo()
@@ -535,9 +605,19 @@ void Class_FSM_Chariot_Control::Reload_TIM_Status_PeriodElapsedCallback()
         /*等待状态*/
         rgb_SetAllColor(GREEN);   
 
-        // 设置目标点 x:0 y:0
-        Chariot->Chassis.Set_Target_Position_X(0);
-        Chariot->Chassis.Set_Target_Position_Y(0);
+        // 设置机械臂初始角度 开启夹爪
+        Chariot->Servo_Caculate(-0.32f, 0.0f, 180.0f);
+        Chariot->Servo[0].Set_Angle(OPEN);
+
+        //k210舵机朝向初始位置
+        Chariot->Servo[5].Set_Angle(K210_INIT);
+
+        // 设置当前点为初始点
+        Chariot->Chassis.Set_Now_Position_X(Init_Position_X);
+        Chariot->Chassis.Set_Now_Position_Y(Init_Position_Y);
+
+        // k210 校准位置
+        Chariot->Chassis.TIM_Position_X_Y_PID_K210_PeriodElapsedCallback(K210_Forward);
 
         // 目前未收到任务
         Chariot->Set_Control_Status(Chariot_Disable_Status);
@@ -545,20 +625,38 @@ void Class_FSM_Chariot_Control::Reload_TIM_Status_PeriodElapsedCallback()
         // 设置当前小车状态 用于通讯
         Chariot->Set_Chariot_Status(Chariot_Free_Status);
 
-        // 如果出库队列不为空 且 对面车处于busy状态 跳转到下一个状态准备出库
-        if(!Fifo_Is_Empty(&Chariot->Output_Cargo_FIFO) && Chariot->Get_Another_Chariot_Status() == Chariot_Busy_Status)
+        // 出库 
+        // 如果出库队列不为空 且 对面车处于Free状态 跳转到下一个状态准备
+        if(!Fifo_Is_Empty(&Chariot->Output_Cargo_FIFO) && Chariot->Get_Another_Chariot_Status() == Chariot_Free_Status)
         {
+            // 从取货队列中取出货物
+            Fifo_Dequeue(&Chariot->Output_Cargo_FIFO, (uint8_t*)&Chariot->Now_Cargo, sizeof(Struct_Cargo));
+            // k210舵机朝向货架位置
+            Chariot->Servo[5].Set_Angle(K210_SHEET);
+            // 设置当前小车状态 用于通讯
+            Chariot->Set_Chariot_Status(Chariot_Busy_Status);
+            // 设置控制状态 为出库状态
+            Chariot->Set_Control_Status(Chariot_Output_Cargo_Status);
+            //设置状态机下一个状态
             Set_Status(FSM_Chariot_Forward_Status);
+            break;
         }
-        // 如果入库队列不为空 且 触发入库信号 等待2s 跳转到下一个状态准备入库
-        if(!Fifo_Is_Empty(&Chariot->Input_Cargo_FIFO) && Chariot->Input_Cargo_Flag)
+
+        // 入库
+        // 如果入库队列不为空 且 触发入库信号 等待1.5s 跳转到下一个状态准备
+        if(!Fifo_Is_Empty(&Chariot->Input_Cargo_FIFO) && INPUT)
         {
-            static uint16_t wait_cnt = 0;
-            if(++wait_cnt > 2000)
-            {
-                Set_Status(FSM_Chariot_Forward_Status);
-                wait_cnt = 0;
-            }
+            //从入货队列中取出货物
+            Fifo_Dequeue(&Chariot->Input_Cargo_FIFO, (uint8_t*)&Chariot->Now_Cargo, sizeof(Struct_Cargo));
+            // k210舵机朝向货架位置
+            Chariot->Servo[5].Set_Angle(K210_SHEET);
+            // 设置当前小车状态 用于通讯
+            Chariot->Set_Chariot_Status(Chariot_Busy_Status);
+            // 设置控制状态 为入库状态
+            Chariot->Set_Control_Status(Chariot_Input_Cargo_Status);
+            //设置状态机下一个状态
+            Set_Status(FSM_Chariot_Forward_Status);
+            break;
         }
     }
     break;
@@ -570,36 +668,66 @@ void Class_FSM_Chariot_Control::Reload_TIM_Status_PeriodElapsedCallback()
         // 设置当前小车状态 用于通讯
         Chariot->Set_Chariot_Status(Chariot_Busy_Status);
 
-        // 夹取货物
-        Chariot->Burry_Input_Cargo_1(Status[Now_Status_Serial].Time);
-
-        // 夹取完成后延时1s
-        if (Status[Now_Status_Serial].Time >= 4000)
+        //如果是入库 延时2s 夹子夹取货物
+        if(Chariot->Get_Control_Status()==Chariot_Input_Cargo_Status && Status[Now_Status_Serial].Time >= 2000)
         {
-            // 如果另一个小车不busy 则开始导航 设置目标点
-            if(Chariot->Get_Another_Chariot_Status()==Chariot_Free_Status)
+            //夹子夹取货物
+            Chariot->Servo[0].Set_Angle(CLOSED);
+            //收起机械臂
+            if(Status[Now_Status_Serial].Time >= 3000)
             {
-                // 通过A*算法计算路径 获得下一周期目标点
-                Chariot->Astart.AStar_Calulate_CallBack(Chariot->Chassis.Get_Now_Position_X(), Chariot->Chassis.Get_Now_Position_Y(), Chariot->Now_Cargo.Position_X, Chariot->Now_Cargo.Position_Y);
-                Chariot->Chassis.Set_Target_Position_X(Chariot->Astart.Get_Tmp_Target_X());
-                Chariot->Chassis.Set_Target_Position_Y(Chariot->Astart.Get_Tmp_Target_Y());
-
-                // Chariot->Chassis.Set_Target_Position_X(-1.0f*(Chariot->Now_Cargo.Position_X-48));
-                // #ifdef OLD_CAR
-                // Chariot->Chassis.Set_Target_Position_Y(-1.0f*(Chariot->Now_Cargo.Position_Y-48));          
-                // #elif defined(NEW_CAR)
-                // Chariot->Chassis.Set_Target_Position_Y((Chariot->Now_Cargo.Position_Y-48));
-                // #endif
-
-                Chariot->Chassis.Set_Target_Angle(0);
-
-                // 到达目标点 跳转到下一个状态
-                if (fabs(Chariot->Chassis.Get_Now_Position_X() - Chariot->Chassis.Get_Target_Position_X()) < 0.02 &&
-                    (fabs(Chariot->Chassis.Get_Now_Position_Y() - Chariot->Chassis.Get_Target_Position_Y()) < 0.02))
-                {
-                    Set_Status(FSM_Chariot_Input_OR_Output_Cargo_Status);
-                }                
+                Chariot->Servo_Caculate(0.07f, 0.1f, 0.0f);
             }
+        }
+
+        //如果是出库 直接收起机械臂 放到指定高度
+        if(Chariot->Get_Control_Status()==Chariot_Output_Cargo_Status)
+        {
+            //先关闭夹爪 防止撞到k210
+            if(Status[Now_Status_Serial].Time <= 2000)
+            {
+                Chariot->Servo[0].Set_Angle(CLOSED);
+            }
+            //2s后再开启夹爪防止碰撞
+            else if(Status[Now_Status_Serial].Time >= 2000)
+            {
+                Chariot->Servo[0].Set_Angle(OPEN);
+            }
+            //根据不同高度 夹取货柜的货物
+            if(Chariot->Now_Cargo.Cargo_Floor == Cargo_First_Floor)
+            {
+                Chariot->Servo_Caculate(0.2f, -0.05f, 0.0f);
+            }
+            else if(Chariot->Now_Cargo.Cargo_Floor == Cargo_Second_Floor)
+            {
+                Chariot->Servo_Caculate(0.2f, 0.17f, 17.0f);
+            }
+        }
+
+        // 收起机械臂完成后延时0.5s
+        if (Status[Now_Status_Serial].Time >= 3500)
+        {
+            // 通过A*算法计算路径 获得下一周期目标点
+            Chariot->Astart.AStar_Calulate_CallBack(Chariot->Chassis.Get_Now_Position_X(), Chariot->Chassis.Get_Now_Position_Y(), -1.0f*(Chariot->Now_Cargo.Position_X-48), -1.0f*(Chariot->Now_Cargo.Position_Y-48));
+            Chariot->Chassis.Set_Target_Position_X(Chariot->Astart.Get_Tmp_Target_X());
+            Chariot->Chassis.Set_Target_Position_Y(Chariot->Astart.Get_Tmp_Target_Y());
+            Chariot->Chassis.Set_Target_Angle(0);
+            // 编码器导航
+            Chariot->Chassis.TIM_Position_X_Y_PID_Encoder_PeriodElapsedCallback();
+            // Chariot->Chassis.Set_Target_Position_X(-1.0f*(Chariot->Now_Cargo.Position_X-48));
+            // #ifdef OLD_CAR
+            // Chariot->Chassis.Set_Target_Position_Y(-1.0f*(Chariot->Now_Cargo.Position_Y-48));          
+            // #elif defined(NEW_CAR)
+            // Chariot->Chassis.Set_Target_Position_Y((Chariot->Now_Cargo.Position_Y-48));
+            // #endif
+
+            // 到达目标点 跳转到下一个状态
+            if (fabs(Chariot->Chassis.Get_Now_Position_X() - Chariot->Chassis.Get_Target_Position_X()) < 0.01 &&
+                (fabs(Chariot->Chassis.Get_Now_Position_Y() - Chariot->Chassis.Get_Target_Position_Y()) < 0.01))
+            {
+                Set_Status(FSM_Chariot_Input_OR_Output_Cargo_Status);
+            }  
+
         }
         break;
     case FSM_Chariot_Input_OR_Output_Cargo_Status:
@@ -609,26 +737,58 @@ void Class_FSM_Chariot_Control::Reload_TIM_Status_PeriodElapsedCallback()
         // 设置当前小车状态 用于通讯
         Chariot->Set_Chariot_Status(Chariot_Free_Status);
 
-        // 先延时1s
-        if (Status[Now_Status_Serial].Time >= 4000)
+        // 设置当前点为 目标点
+        Chariot->Chassis.Set_Now_Position_X(-1.0f*(Chariot->Now_Cargo.Position_X-48));
+        Chariot->Chassis.Set_Now_Position_Y(-1.0f*(Chariot->Now_Cargo.Position_Y-48));
+
+        // k210 校准位置
+        // 如果校准位置完成
+        if(Chariot->Chassis.TIM_Position_X_Y_PID_K210_PeriodElapsedCallback(K210_Backward))
         {
-            // 取件
+            static uint16_t cnt = 0;
+            cnt++;
+            // 出库
             if (Chariot->Get_Control_Status() == Chariot_Output_Cargo_Status)
             {
-                // 夹取货柜的货物
-                Chariot->Burry_Output_Cargo_1(Status[Now_Status_Serial].Time - 4000);
+                //根据不同高度 夹取货柜的货物
+                if(Chariot->Now_Cargo.Cargo_Floor == Cargo_First_Floor)
+                {
+                    Chariot->Servo_Caculate(0.2f, -0.05f, 0.0f);                    
+                }
+                else if(Chariot->Now_Cargo.Cargo_Floor == Cargo_Second_Floor)
+                {
+                    Chariot->Servo_Caculate(0.2f, 0.17f, 17.0f);
+                }
+                if(cnt >= 2500)
+                {
+                    Chariot->Servo[0].Set_Angle(CLOSED);
+                }
             }
-            // 放件
+            // 入库
             else if (Chariot->Get_Control_Status() == Chariot_Input_Cargo_Status)
             {
-                // 放置货物
-                Chariot->Burry_Input_Cargo_2(Status[Now_Status_Serial].Time - 4000);
+                // 根据不同高度 放置货物
+                if(Chariot->Now_Cargo.Cargo_Floor == Cargo_First_Floor)
+                {
+                    Chariot->Servo_Caculate(0.2f, -0.05f, 0.0f);   
+                }
+                else if(Chariot->Now_Cargo.Cargo_Floor == Cargo_Second_Floor)
+                {
+                    Chariot->Servo_Caculate(0.2f, 0.17f, 17.0f);
+                }
+                if(cnt >= 2500)
+                {
+                    Chariot->Servo[0].Set_Angle(OPEN);
+                }
             }
-        }
-        // 整个操作5s后返回
-        if (Status[Now_Status_Serial].Time > 8000)
-        {
-            Set_Status(FSM_Chariot_Back_Status);
+            // 整个操作结束4s后返回
+            if (cnt > 4000)
+            {
+                //收起机械臂
+                Chariot->Servo[0].Set_Angle(CLOSED);
+                Chariot->Servo_Caculate(0.07f, 0.1f, 0.0f);
+                Set_Status(FSM_Chariot_Back_Status);
+            }
         }
         break;
     case FSM_Chariot_Back_Status:
@@ -638,19 +798,22 @@ void Class_FSM_Chariot_Control::Reload_TIM_Status_PeriodElapsedCallback()
         // 设置当前小车状态 用于通讯
         Chariot->Set_Chariot_Status(Chariot_Busy_Status);
 
-	    Chariot->Midlle_Position(Status[Now_Status_Serial].Time);
-
-        if(Status[Now_Status_Serial].Time > 2000)
+        //延时1s 返回原点
+        if(Status[Now_Status_Serial].Time > 1000)
         {
-            // 如果另一个小车不busy 则开始导航 设置目标点
+            // 如果另一个小车不busy 则开始导航
             if(Chariot->Get_Another_Chariot_Status()==Chariot_Free_Status)
             {
-                Chariot->Chassis.Set_Target_Position_X(0);
-                Chariot->Chassis.Set_Target_Position_Y(0);
+                // 通过A*算法计算路径 获得下一周期目标点
+                Chariot->Astart.AStar_Calulate_CallBack(Chariot->Chassis.Get_Now_Position_X(), Chariot->Chassis.Get_Now_Position_Y(), Init_Position_X, Init_Position_Y);
+                Chariot->Chassis.Set_Target_Position_X(Chariot->Astart.Get_Tmp_Target_X());
+                Chariot->Chassis.Set_Target_Position_Y(Chariot->Astart.Get_Tmp_Target_Y());
                 Chariot->Chassis.Set_Target_Angle(0);
+                // 编码器导航
+                Chariot->Chassis.TIM_Position_X_Y_PID_Encoder_PeriodElapsedCallback();
                 // 到达目标点 跳转到下一个状态
-                if (fabs(Chariot->Chassis.Get_Now_Position_X() - Chariot->Chassis.Get_Target_Position_X()) < 0.02 &&
-                    (fabs(Chariot->Chassis.Get_Now_Position_Y() - Chariot->Chassis.Get_Target_Position_Y()) < 0.02))
+                if (fabs(Chariot->Chassis.Get_Now_Position_X() - Chariot->Chassis.Get_Target_Position_X()) < 0.01 &&
+                    (fabs(Chariot->Chassis.Get_Now_Position_Y() - Chariot->Chassis.Get_Target_Position_Y()) < 0.01))
                 {
                     Set_Status(FSM_Chariot_Back_Judge_Status);
                 }                
@@ -665,22 +828,31 @@ void Class_FSM_Chariot_Control::Reload_TIM_Status_PeriodElapsedCallback()
         // 设置当前小车状态 用于通讯
         Chariot->Set_Chariot_Status(Chariot_Free_Status);
 
+        //k210舵机朝向初始位置
+        Chariot->Servo[5].Set_Angle(K210_INIT);
+
         // 先延时1s
-        if (Status[Now_Status_Serial].Time >= 2000)
+        if (Status[Now_Status_Serial].Time >= 1000)
         {
-            // 取件返回
+            //放置机械臂到初始位置
+            Chariot->Servo_Caculate(-0.32f, 0.0f, 180.0f);
+
+            // 取件返回 先放置机械臂 再松开夹爪回到初始状态
             if (Chariot->Get_Control_Status() == Chariot_Output_Cargo_Status)
             {          
-                //链表删除当前货物信息
-                Chariot->Output_Cargo();
-                // 返回初始状态
-                Chariot->Burry_Output_Cargo_2(Status[Now_Status_Serial].Time - 2000);
-                if (Status[Now_Status_Serial].Time > 5000)
+                // 放置货物
+                if (Status[Now_Status_Serial].Time > 3000)
                 {
-                    Set_Status(FSM_Chariot_Waiting_Status);                // 返回初始状态
+                    //延时一会再松开夹爪
+                    Chariot->Servo[0].Set_Angle(OPEN);
+                    //取走货物才能跳转到准备状态
+                    if(OUTPUT)
+                    {
+                        Set_Status(FSM_Chariot_Waiting_Status);   // 返回初始状态             
+                    }
                 } 
             }
-            // 放件返回
+            // 放件返回 直接回到初始状态
             else if (Chariot->Get_Control_Status() == Chariot_Input_Cargo_Status)
             {
                 Set_Status(FSM_Chariot_Waiting_Status);
@@ -689,5 +861,6 @@ void Class_FSM_Chariot_Control::Reload_TIM_Status_PeriodElapsedCallback()
         break;
     }
 }
+
 
 /************************ COPYRIGHT(C) USTC-ROBOWALKER **************************/

@@ -35,6 +35,30 @@
 class Class_Chariot;
 /* Exported types ------------------------------------------------------------*/
 
+#define INPUT (HAL_GPIO_ReadPin(INPUT_GPIO_Port, INPUT_Pin) == GPIO_PIN_RESET)
+#define OUTPUT (HAL_GPIO_ReadPin(INPUT_GPIO_Port, INPUT_Pin) == GPIO_PIN_SET)
+
+#define K210_SHEET  90
+#define K210_INIT  -90
+
+#ifdef NEW_CAR
+
+    #define Init_Position_X 1.0
+    #define Init_Position_Y 0.0       
+
+    #define CLOSED  10
+    #define OPEN   -50
+
+#elif defined(OLD_CAR)
+
+    #define Init_Position_X 0.0
+    #define Init_Position_Y 0.0  
+
+    #define CLOSED 30
+    #define OPEN   0
+ 
+#endif
+
 enum Enum_Chariot_Status :uint8_t
 {
     Chariot_Free_Status = 1,
@@ -93,7 +117,7 @@ public:
     Class_Cargo_List Cargo_List; //已经入库的货物链表
     Struct_Cargo Now_Cargo; //当前货物
     uint8_t Now_Cargo_Number; //当前入库货物数量
-    Class_Servo Servo[4]; //四轴舵机自由度
+    Class_Servo Servo[6]; //5轴舵机自由度 + k210
     Enum_Chariot_Control_Status Control_Status = Chariot_Disable_Status; //控制状态
     friend class Class_FSM_Chariot_Control; //有限自动机
 
@@ -102,6 +126,7 @@ public:
     //构造函数
     void Init(UART_HandleTypeDef *huart);
 
+    bool Servo_Caculate(float x, float y, float angle);
     uint8_t Get_Cargo_Data();
     uint8_t Jundge_Cargo();
     void Output_Cargo();

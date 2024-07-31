@@ -28,7 +28,7 @@ class Class_AStar_Node
     float Distance;
     float Cost;
 
-    //地图x和y最大范围 单位/m
+    //地图x和y最大范围 单位/m ±x和±y
     float X_Distance;
     float Y_Distance;
 
@@ -76,7 +76,7 @@ class Class_AStar_Node
 
     void Calulate_Cost()
     {
-        if(this->Location_X < 0 ||this->Location_X > this->X_Distance||this->Location_Y < 0 ||this->Location_Y > this->Y_Distance)
+        if (fabs(this->Location_X) > this->X_Distance || fabs(this->Location_Y) > this->Y_Distance)
         {
             this->Cost = Block_Cost;
         }
@@ -149,7 +149,7 @@ class Class_Astart
         Class_AStar_Node AStar_Node_Right_Down;
         
         //最优节点的方向选择
-        Enum_AStar_Node_Choice AStar_Node_Choice;
+        Enum_AStar_Node_Choice AStar_Node_Choice = AStar_Node_Right_Up_Choice;
 
         //最终的最优节点
         Class_AStar_Node AStar_Next_Node;

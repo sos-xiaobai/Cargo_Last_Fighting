@@ -24,6 +24,7 @@
 #include "dvc_motor.h"
 #include "dvc_imu.h"
 #include "tim.h"
+#include "dvc_miniPC.h"
 /* Exported macros -----------------------------------------------------------*/
 
 /* Exported types ------------------------------------------------------------*/
@@ -72,6 +73,9 @@ public:
     //IMU
     Class_IMU IMU;
 
+    //MiniPC
+    Class_MiniPC* MiniPC;
+
     //坐标和角度的PID
     Class_PID Position_X_PID;
     Class_PID Position_Y_PID;
@@ -88,8 +92,8 @@ public:
 
     inline void Set_Now_Omega(float __Now_Omega);
     // inline void Set_Now_Angle(float __Now_Angle);
-    // inline void Set_Now_Position_X(float __Now_Position_X);
-    // inline void Set_Now_Position_Y(float __Now_Position_Y);
+    inline void Set_Now_Position_X(float __Now_Position_X){Now_Position_X = __Now_Position_X;};
+    inline void Set_Now_Position_Y(float __Now_Position_Y){Now_Position_Y = __Now_Position_Y;};
     inline void Set_Now_Velocity_X(float __Now_Velocity_X);
     inline void Set_Now_Velocity_Y(float __Now_Velocity_Y);
 
@@ -111,6 +115,9 @@ public:
     void Speed_Resolution();
     void Navigation_Calibrate();
     void TIM_Calculate_PeriodElapsedCallback();
+    void TIM_Position_X_Y_PID_Encoder_PeriodElapsedCallback();
+    void TIM_Position_Yaw_PID_Encoder_PeriodElapsedCallback();
+    bool TIM_Position_X_Y_PID_K210_PeriodElapsedCallback(Enum_K210_Dirction dirction);
     void TIM1ms_Chassis_Posture_PeriodElapsedCallback();
 
 protected:

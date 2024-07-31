@@ -254,6 +254,64 @@ void Class_Chassis::TIM_Calculate_PeriodElapsedCallback()
 
 }
 
+void Class_Chassis::TIM_Position_X_Y_PID_Encoder_PeriodElapsedCallback()
+{
+    //补充导航部分pid
+    Position_Y_PID.Set_Target(Target_Position_Y);
+    Position_Y_PID.Set_Now(Now_Position_Y);
+    Position_Y_PID.TIM_Adjust_PeriodElapsedCallback();
+    Target_Velocity_Y = Position_Y_PID.Get_Out();
+
+    #ifdef OLD_CAR
+    Position_X_PID.Set_Target(Target_Position_X);
+    Position_X_PID.Set_Now(Now_Position_X);
+    Position_X_PID.TIM_Adjust_PeriodElapsedCallback();
+    Target_Velocity_X = -1.0f * Position_X_PID.Get_Out(); 
+
+    #elif defined(NEW_CAR)
+
+    Position_X_PID.Set_Target(Target_Position_X);
+    Position_X_PID.Set_Now(Now_Position_X);
+    Position_X_PID.TIM_Adjust_PeriodElapsedCallback();
+    Target_Velocity_X = Position_X_PID.Get_Out();
+
+    #endif    
+}
+
+void Class_Chassis::TIM_Position_Yaw_PID_Encoder_PeriodElapsedCallback()
+{
+    #ifdef OLD_CAR
+
+    Position_Yaw_PID.Set_Target(Target_Angle);
+    Position_Yaw_PID.Set_Now(Now_Angle);
+    Position_Yaw_PID.TIM_Adjust_PeriodElapsedCallback();
+    Target_Omega = Position_Yaw_PID.Get_Out();
+
+    #elif defined(NEW_CAR)
+
+    Position_Yaw_PID.Set_Target(Target_Angle);
+    Position_Yaw_PID.Set_Now(Now_Angle);
+    Position_Yaw_PID.TIM_Adjust_PeriodElapsedCallback();
+    Target_Omega = -1.0f * Position_Yaw_PID.Get_Out();
+
+    #endif
+}
+
+
+bool Class_Chassis::TIM_Position_X_Y_PID_K210_PeriodElapsedCallback(Enum_K210_Dirction dirction)
+{
+    //k210距离环PID
+    MiniPC->TIM_Calculate_PeriodElapsedCallback(dirction);
+    Set_Target_Velocity_X(MiniPC->Get_target_x_speed());
+    Set_Target_Velocity_Y(MiniPC->Get_target_y_speed());    
+    if (abs(Target_Velocity_X)<0.005 &&
+        abs(Target_Velocity_Y)<0.005)
+        {
+            return true;
+        }
+    return false;
+}
+
 void Class_Chassis::TIM1ms_Chassis_Posture_PeriodElapsedCallback()
 {
     #ifdef IMU_NAVIGATE

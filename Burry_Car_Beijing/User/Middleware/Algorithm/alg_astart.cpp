@@ -23,7 +23,7 @@ bool Class_Astart::AStar_Calulate_CallBack(float __start_x, float __start_y, flo
     Start_Y = __start_y;
     End_X = __end_x;
     End_Y = __end_y;
-    if(fabs(Start_X-End_X)<0.02 && fabs(Start_Y-End_Y)<0.02)
+    if(fabs(Start_X-End_X)<0.01 && fabs(Start_Y-End_Y)<0.01)
     {
         Tmp_target_X = Start_X;
         Tmp_target_Y = Start_Y;
@@ -92,23 +92,23 @@ bool Class_Astart::AStar_Calulate_CallBack(float __start_x, float __start_y, flo
     {
         Tmp_target_X = Start_X;
         Tmp_target_Y = Start_Y;
-        return false;
+        //return false;
     }
     //否则将最优代价节点的位置作为目标点输出
     else
     {
         Tmp_target_X = AStar_Next_Node.Get_Location_X();
         Tmp_target_Y = AStar_Next_Node.Get_Location_Y();
-        return true;
+        //return true;
     }
-
+    return false;
 }
 
  Class_AStar_Node Class_Astart::Find_Best_Node()
 {
     Class_AStar_Node __tmp_node;
     __tmp_node = AStar_Node_Right_Up;
-    if(AStar_Node_Up.Get_Cost() < __tmp_node.Get_Cost())
+    if(AStar_Node_Up.Get_Cost() <= __tmp_node.Get_Cost())
     {
         if(AStar_Node_Choice!=AStar_Node_Down_Choice)
         {
@@ -116,7 +116,7 @@ bool Class_Astart::AStar_Calulate_CallBack(float __start_x, float __start_y, flo
             AStar_Node_Choice = AStar_Node_Up_Choice;
         }
     }
-    if(AStar_Node_Left_Up.Get_Cost() < __tmp_node.Get_Cost())
+    if(AStar_Node_Left_Up.Get_Cost() <= __tmp_node.Get_Cost())
     {
         if(AStar_Node_Choice!=AStar_Node_Right_Down_Choice)
         {
@@ -124,7 +124,7 @@ bool Class_Astart::AStar_Calulate_CallBack(float __start_x, float __start_y, flo
             AStar_Node_Choice = AStar_Node_Left_Up_Choice;
         }
     }
-    if(AStar_Node_Left.Get_Cost() < __tmp_node.Get_Cost())
+    if(AStar_Node_Left.Get_Cost() <= __tmp_node.Get_Cost())
     {
         if(AStar_Node_Choice!=AStar_Node_Right_Choice)
         {
@@ -132,7 +132,7 @@ bool Class_Astart::AStar_Calulate_CallBack(float __start_x, float __start_y, flo
             AStar_Node_Choice = AStar_Node_Left_Choice;
         }
     }
-    if(AStar_Node_Left_Down.Get_Cost() < __tmp_node.Get_Cost())
+    if(AStar_Node_Left_Down.Get_Cost() <= __tmp_node.Get_Cost())
     {
         if(AStar_Node_Choice!=AStar_Node_Right_Up_Choice)
         {
@@ -140,7 +140,7 @@ bool Class_Astart::AStar_Calulate_CallBack(float __start_x, float __start_y, flo
             AStar_Node_Choice = AStar_Node_Left_Down_Choice;
         }
     }
-    if(AStar_Node_Down.Get_Cost() < __tmp_node.Get_Cost())
+    if(AStar_Node_Down.Get_Cost() <= __tmp_node.Get_Cost())
     {
         if(AStar_Node_Choice!=AStar_Node_Up_Choice)
         {
@@ -148,7 +148,7 @@ bool Class_Astart::AStar_Calulate_CallBack(float __start_x, float __start_y, flo
             AStar_Node_Choice = AStar_Node_Down_Choice;
         }
     }
-    if(AStar_Node_Right_Down.Get_Cost() < __tmp_node.Get_Cost())
+    if(AStar_Node_Right_Down.Get_Cost() <= __tmp_node.Get_Cost())
     {
         if(AStar_Node_Choice!=AStar_Node_Left_Up_Choice)
         {
@@ -156,7 +156,7 @@ bool Class_Astart::AStar_Calulate_CallBack(float __start_x, float __start_y, flo
             AStar_Node_Choice = AStar_Node_Right_Down_Choice;
         }
     }
-    if(AStar_Node_Right.Get_Cost() < __tmp_node.Get_Cost())
+    if(AStar_Node_Right.Get_Cost() <= __tmp_node.Get_Cost())
     {
         if(AStar_Node_Choice!=AStar_Node_Left_Choice)
         {

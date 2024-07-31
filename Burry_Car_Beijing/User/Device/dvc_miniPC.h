@@ -7,6 +7,13 @@
 #include "drv_uart.h"
 #include "alg_pid.h"
 
+
+enum Enum_K210_Dirction
+{
+    K210_Forward = 0,
+    K210_Backward,
+};
+
 enum Enum_MiniPC_Status
 {
     MiniPC_Disable_Status = 0,
@@ -41,7 +48,7 @@ class Class_MiniPC
 
     void Init(UART_HandleTypeDef *huart,float __target_x,float __target_y);
     void UART_RxCpltCallback(uint8_t *Rx_Data);
-    void TIM_Calculate_PeriodElapsedCallback();
+    void TIM_Calculate_PeriodElapsedCallback(Enum_K210_Dirction dirction);
     void TIM_50ms_Alive_PeriodElapsedCallback();
 
     inline float Get_now_x(void){return (now_x);}

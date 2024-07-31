@@ -18,6 +18,9 @@ void Class_Motor::Init(TIM_HandleTypeDef *__TIM_PWMHandle, TIM_HandleTypeDef *__
     Last_Encoder = 0;
     Encoder_Diff = 0;
     Target_Compare = 0;
+    HAL_TIM_PWM_Start(TIM_PWMHandle, Channel_1);
+    HAL_TIM_PWM_Start(TIM_PWMHandle, Channel_2);
+    HAL_TIM_Encoder_Start(TIM_EncoderHandle, TIM_CHANNEL_ALL);
 }
 
 

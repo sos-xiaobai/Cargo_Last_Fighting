@@ -51,18 +51,26 @@ void Class_MiniPC::Data_Process()
     memcpy(&Pre_UART_Rx_Data, &Now_UART_Rx_Data, sizeof(Struct_MiniPC_UART_Data));
 }
 
-void Class_MiniPC::TIM_Calculate_PeriodElapsedCallback()
+void Class_MiniPC::TIM_Calculate_PeriodElapsedCallback(Enum_K210_Dirction dirction)
 {
     if (MiniPC_Status == MiniPC_Enable_Status)
     {
         PID_X.Set_Now(now_x);
         PID_Y.Set_Now(now_y);
         PID_X.Set_Target(target_x);
-        PID_Y.Set_Target(-7.0);
+        PID_Y.Set_Target(-10.0);
         PID_X.TIM_Adjust_PeriodElapsedCallback();
         PID_Y.TIM_Adjust_PeriodElapsedCallback();
-        target_x_speed = PID_X.Get_Out();
-        target_y_speed = PID_Y.Get_Out();
+        if(dirction == K210_Forward)
+        {
+            target_x_speed = PID_X.Get_Out();  
+            target_y_speed = PID_Y.Get_Out();  
+        }
+        else if(dirction == K210_Backward)
+        {
+            target_x_speed = -PID_X.Get_Out();
+            target_y_speed = -PID_Y.Get_Out();
+        }
     }
     if (MiniPC_Status == MiniPC_Disable_Status)
     {

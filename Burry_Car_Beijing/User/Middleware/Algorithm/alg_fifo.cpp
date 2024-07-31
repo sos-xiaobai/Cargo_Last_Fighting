@@ -49,7 +49,7 @@ uint8_t Fifo_Is_Full(CircularFifo *fifo)
  */
 uint8_t Fifo_Is_Empty(CircularFifo *fifo)
 {
-    return fifo->count == 0;
+    return (fifo->count == 0);
 }
 
 /**

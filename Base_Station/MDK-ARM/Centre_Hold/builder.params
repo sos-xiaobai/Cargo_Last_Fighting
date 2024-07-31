@@ -3,11 +3,11 @@
     "target": "Centre_Hold",
     "toolchain": "AC5",
     "toolchainLocation": "D:\\Keil5\\keil5_anzhuangbao\\ARM\\ARMCC",
-    "toolchainCfgFile": "c:\\Users\\enze\\.vscode\\extensions\\cl.eide-3.18.1\\res\\data\\models\\win32/arm.v5.model.json",
+    "toolchainCfgFile": "c:\\Users\\enze\\.vscode\\extensions\\cl.eide-3.18.2\\res\\data\\models\\win32/arm.v5.model.json",
     "buildMode": "fast|multhread",
     "showRepathOnLog": true,
     "threadNum": 12,
-    "rootDir": "d:\\emmble-2024\\2024-huawei\\Centre\\MDK-ARM",
+    "rootDir": "d:\\emmble-2024\\2024-huawei\\Base_Station\\MDK-ARM",
     "dumpPath": "..\\MDK-ARM\\Centre_Hold",
     "outDir": "..\\MDK-ARM\\Centre_Hold",
     "ram": 65536,
@@ -95,20 +95,20 @@
             "rw-base": "",
             "$disableOutputTask": true,
             "link-scatter": [
-                "\"d:/emmble-2024/2024-huawei/Centre/MDK-ARM/Centre_Hold/Centre_Hold.sct\""
+                "\"d:/emmble-2024/2024-huawei/Base_Station/MDK-ARM/Centre_Hold/Centre_Hold.sct\""
             ]
         }
     },
     "env": {
-        "workspaceFolder": "d:\\emmble-2024\\2024-huawei\\Centre\\MDK-ARM",
+        "workspaceFolder": "d:\\emmble-2024\\2024-huawei\\Base_Station\\MDK-ARM",
         "workspaceFolderBasename": "MDK-ARM",
-        "OutDir": "d:\\emmble-2024\\2024-huawei\\Centre\\MDK-ARM\\..\\MDK-ARM\\Centre_Hold",
+        "OutDir": "d:\\emmble-2024\\2024-huawei\\Base_Station\\MDK-ARM\\..\\MDK-ARM\\Centre_Hold",
         "OutDirRoot": "..\\MDK-ARM",
         "OutDirBase": "..\\MDK-ARM\\Centre_Hold",
         "ProjectName": "Centre_Hold",
         "ConfigName": "Centre_Hold",
-        "ProjectRoot": "d:\\emmble-2024\\2024-huawei\\Centre\\MDK-ARM",
-        "ExecutableName": "d:\\emmble-2024\\2024-huawei\\Centre\\MDK-ARM\\..\\MDK-ARM\\Centre_Hold\\Centre_Hold",
+        "ProjectRoot": "d:\\emmble-2024\\2024-huawei\\Base_Station\\MDK-ARM",
+        "ExecutableName": "d:\\emmble-2024\\2024-huawei\\Base_Station\\MDK-ARM\\..\\MDK-ARM\\Centre_Hold\\Centre_Hold",
         "SYS_Platform": "win32",
         "SYS_DirSep": "\\",
         "SYS_DirSeparator": "\\",
@@ -124,6 +124,6 @@
         "global": "3c2b285dfd51fd3e38577362bca301fa",
         "c/cpp-compiler": "e378d258f07602a50289b83857e478bd",
         "asm-compiler": "99914b932bd37a50b983c5e7c90ae93b",
-        "linker": "f04ae68171de01e38706215d229c1042"
+        "linker": "531762037be0aebce995b82cba76f88b"
     }
 }

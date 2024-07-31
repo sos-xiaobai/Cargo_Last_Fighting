@@ -726,3 +726,101 @@ command:
   ^
 .\..\Core\Src\main.c: 0 warnings, 30 errors
 
+[2024-07-30 14:51:28]	compilation failed at : "d:\emmble-2024\2024-huawei\Base_Station\Core\Src\main.c", exit code: 1
+command: 
+  "D:\Keil5\keil5_anzhuangbao\ARM\ARMCC\bin\armcc.exe" -c --apcs=interwork -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../User/Device -I../User/Interaction -I../User/Middleware/Algorithm -I../User/Middleware/Driver -I../User/Task -IRTE/_Centre_Hold -DUSE_HAL_DRIVER -DSTM32F105xC --cpu Cortex-M3 --li --c99 -O3 --split_sections -W --diag_suppress=1 --diag_suppress=1295 -g -o .\..\MDK-ARM\Centre_Hold\.obj\__\Core\Src\main.o --no_depend_system_headers --depend .\..\MDK-ARM\Centre_Hold\.obj\__\Core\Src\main.d .\..\Core\Src\main.c
+   at unify_builder.Program.compileByMulThread(Int32 thrNum, CmdInfo[] cmds_, List`1 errLogs)
+   at unify_builder.Program.Main(String[] args_)
+---
+"../User/Middleware/Driver/drv_uart.h", line 55: Error:  #20: identifier "Struct_UART_Manage_Object" is undefined
+  extern Struct_UART_Manage_Object UART1_Manage_Object;
+         ^
+"../User/Middleware/Driver/drv_uart.h", line 56: Error:  #20: identifier "Struct_UART_Manage_Object" is undefined
+  extern Struct_UART_Manage_Object UART2_Manage_Object;
+         ^
+"../User/Middleware/Driver/drv_uart.h", line 57: Error:  #20: identifier "Struct_UART_Manage_Object" is undefined
+  extern Struct_UART_Manage_Object UART3_Manage_Object;
+         ^
+"../User/Middleware/Driver/drv_uart.h", line 58: Error:  #20: identifier "Struct_UART_Manage_Object" is undefined
+  extern Struct_UART_Manage_Object UART4_Manage_Object;
+         ^
+"../User/Middleware/Driver/drv_uart.h", line 59: Error:  #20: identifier "Struct_UART_Manage_Object" is undefined
+  extern Struct_UART_Manage_Object UART5_Manage_Object;
+         ^
+"../User/Middleware/Driver/drv_uart.h", line 60: Error:  #20: identifier "Struct_UART_Manage_Object" is undefined
+  extern Struct_UART_Manage_Object UART6_Manage_Object;
+         ^
+"../User/Middleware/Driver/drv_uart.h", line 61: Error:  #20: identifier "Struct_UART_Manage_Object" is undefined
+  extern Struct_UART_Manage_Object UART7_Manage_Object;
+         ^
+"../User/Middleware/Driver/drv_uart.h", line 62: Error:  #20: identifier "Struct_UART_Manage_Object" is undefined
+  extern Struct_UART_Manage_Object UART8_Manage_Object;
+         ^
+"../User/Middleware/Driver/drv_tim.h", line 47: Error:  #20: identifier "Struct_TIM_Manage_Object" is undefined
+  extern Struct_TIM_Manage_Object TIM1_Manage_Object;
+         ^
+"../User/Middleware/Driver/drv_tim.h", line 48: Error:  #20: identifier "Struct_TIM_Manage_Object" is undefined
+  extern Struct_TIM_Manage_Object TIM2_Manage_Object;
+         ^
+"../User/Middleware/Driver/drv_tim.h", line 49: Error:  #20: identifier "Struct_TIM_Manage_Object" is undefined
+  extern Struct_TIM_Manage_Object TIM3_Manage_Object;
+         ^
+"../User/Middleware/Driver/drv_tim.h", line 50: Error:  #20: identifier "Struct_TIM_Manage_Object" is undefined
+  extern Struct_TIM_Manage_Object TIM4_Manage_Object;
+         ^
+"../User/Middleware/Driver/drv_tim.h", line 51: Error:  #20: identifier "Struct_TIM_Manage_Object" is undefined
+  extern Struct_TIM_Manage_Object TIM5_Manage_Object;
+         ^
+"../User/Middleware/Driver/drv_tim.h", line 52: Error:  #20: identifier "Struct_TIM_Manage_Object" is undefined
+  extern Struct_TIM_Manage_Object TIM6_Manage_Object;
+         ^
+"../User/Middleware/Driver/drv_tim.h", line 53: Error:  #20: identifier "Struct_TIM_Manage_Object" is undefined
+  extern Struct_TIM_Manage_Object TIM7_Manage_Object;
+         ^
+"../User/Middleware/Driver/drv_tim.h", line 54: Error:  #20: identifier "Struct_TIM_Manage_Object" is undefined
+  extern Struct_TIM_Manage_Object TIM8_Manage_Object;
+         ^
+"../User/Middleware/Driver/drv_tim.h", line 55: Error:  #20: identifier "Struct_TIM_Manage_Object" is undefined
+  extern Struct_TIM_Manage_Object TIM9_Manage_Object;
+         ^
+"../User/Middleware/Driver/drv_tim.h", line 56: Error:  #20: identifier "Struct_TIM_Manage_Object" is undefined
+  extern Struct_TIM_Manage_Object TIM10_Manage_Object;
+         ^
+"../User/Middleware/Driver/drv_tim.h", line 57: Error:  #20: identifier "Struct_TIM_Manage_Object" is undefined
+  extern Struct_TIM_Manage_Object TIM11_Manage_Object;
+         ^
+"../User/Middleware/Driver/drv_tim.h", line 58: Error:  #20: identifier "Struct_TIM_Manage_Object" is undefined
+  extern Struct_TIM_Manage_Object TIM12_Manage_Object;
+         ^
+"../User/Middleware/Driver/drv_tim.h", line 59: Error:  #20: identifier "Struct_TIM_Manage_Object" is undefined
+  extern Struct_TIM_Manage_Object TIM13_Manage_Object;
+         ^
+"../User/Middleware/Driver/drv_tim.h", line 60: Error:  #20: identifier "Struct_TIM_Manage_Object" is undefined
+  extern Struct_TIM_Manage_Object TIM14_Manage_Object;
+         ^
+"../User/Middleware/Algorithm/alg_fsm.h", line 41: Error:  #20: identifier "Enum_Status_Stage" is undefined
+      Enum_Status_Stage Status_Stage;
+      ^
+"../User/Middleware/Algorithm/alg_fsm.h", line 50: Error:  #20: identifier "class" is undefined
+  class Class_FSM
+  ^
+"../User/Middleware/Algorithm/alg_fsm.h", line 51: Error:  #65: expected a ";"
+  {
+  ^
+"../User/Middleware/Algorithm/alg_fsm.h", line 83: Error:  #169: expected a declaration
+  };
+  ^
+"../User/Middleware/Algorithm/alg_fsm.h", line 94: Error:  #65: expected a ";"
+  uint8_t Class_FSM::Get_Now_Status_Serial()
+                   ^
+"../User/Device/dvc_cargo.h", line 36: Error:  #20: identifier "Struct_Cargo" is undefined
+      Struct_Cargo* Next_Cargo;
+      ^
+"../User/Device/dvc_cargo.h", line 45: Error:  #20: identifier "class" is undefined
+  class Class_Cargo_List
+  ^
+"../User/Device/dvc_cargo.h", line 46: Error:  #65: expected a ";"
+  {
+  ^
+.\..\Core\Src\main.c: 0 warnings, 30 errors
+

@@ -63,6 +63,8 @@ void Error_Handler(void);
 #define CS1_ACCEL_GPIO_Port GPIOE
 #define CS1_GYRO_Pin GPIO_PIN_8
 #define CS1_GYRO_GPIO_Port GPIOB
+#define INPUT_Pin GPIO_PIN_6
+#define INPUT_GPIO_Port GPIOE
 #define INT1_GYRO_Pin GPIO_PIN_9
 #define INT1_GYRO_GPIO_Port GPIOB
 #define INT1_GYRO_EXTI_IRQn EXTI9_5_IRQn
@@ -84,8 +86,6 @@ void Error_Handler(void);
 #define UP_GPIO_Port GPIOF
 #define RSTN_IST8310_Pin GPIO_PIN_6
 #define RSTN_IST8310_GPIO_Port GPIOG
-#define IMU_PWM_Pin GPIO_PIN_6
-#define IMU_PWM_GPIO_Port GPIOF
 #define DRDY_IST8310_Pin GPIO_PIN_3
 #define DRDY_IST8310_GPIO_Port GPIOG
 #define DRDY_IST8310_EXTI_IRQn EXTI3_IRQn

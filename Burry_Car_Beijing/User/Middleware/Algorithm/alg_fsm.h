@@ -39,7 +39,7 @@ enum Enum_Status_Stage
 struct Struct_Status
 {
     Enum_Status_Stage Status_Stage;
-    uint32_t Time;
+    uint64_t Time;
 };
 
 /**
