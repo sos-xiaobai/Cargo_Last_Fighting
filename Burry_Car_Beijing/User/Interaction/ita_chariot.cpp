@@ -434,7 +434,7 @@ uint8_t Class_Chariot::Jundge_Cargo()
  */
 bool Class_Chariot::Servo_Caculate(float x, float y, float angle)
 {
-    #ifdef NWE_CAR
+    #ifdef NEW_CAR
 	float L1 = 0.105;  //杆长 单位/m 靠近底座的杆
 	float L2 = 0.09;
 	float L3 = 0.14;  //0.245 伸长
@@ -475,9 +475,9 @@ bool Class_Chariot::Servo_Caculate(float x, float y, float angle)
     }
     #else if defined(NEW_CAR)
     {
-        Servo[1].Set_Angle(-1.0f*tmp_ptheta[0]);
-        Servo[2].Set_Angle(tmp_ptheta[1]);
-        Servo[3].Set_Angle(tmp_ptheta[2]);
+        Servo[1].Set_Angle(-1.0f*tmp_ptheta[2]);
+        Servo[2].Set_Angle(-1.0f*tmp_ptheta[1]);
+        Servo[3].Set_Angle(tmp_ptheta[0]);
     }
     #endif
 
