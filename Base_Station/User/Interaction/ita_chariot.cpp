@@ -270,6 +270,7 @@ void Class_Chariot::TIM1msMod50_Alive_PeriodElapsedCallback()
 uint16_t prescaler = 1;
 uint16_t pwm_duty_pulse = 500;
 bool Sing_Flag = 1;
+bool tets_fla=0;
 void Class_FSM_Chariot_Control::Reload_TIM_Status_PeriodElapsedCallback()
 {
    if(Chariot->Last_Sim_Send_Flag != Chariot->Sim_Send_Flag)
