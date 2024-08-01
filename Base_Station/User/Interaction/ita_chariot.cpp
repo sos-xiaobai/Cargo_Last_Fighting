@@ -210,7 +210,7 @@ void Class_Chariot::UART_Send_Add_Cargo()
     uint8_t tmp_send_buf[22] = {0};
     //帧头
     tmp_send_buf[0] = 0xA5;
-    // 1代表添加 0代表删除
+    // 1代表添加 2代表删除
     tmp_send_buf[1] = 0x01;
     //数据 只截取前19个字节
     memcpy(&tmp_send_buf[2],&Now_Cargo,send_buf_len-3);
@@ -229,7 +229,7 @@ void Class_Chariot::UART_Send_Delete_Cargo()
     uint8_t tmp_send_buf[22] = {0};
     //帧头
     tmp_send_buf[0] = 0xA5;
-    // 1代表添加 0代表删除
+    // 1代表添加 2代表删除
     tmp_send_buf[1] = 0x02;
     //数据 只截取前19个字节
     // LittleEndian_To_BigEndian((uint8_t*)&Now_Cargo,tmp_data,17);
