@@ -81,6 +81,10 @@ class Class_IMU
 
     Enum_IMU_Status Get_IMU_Status(void);
 
+    //校准之后的初始yaw角度
+    float Init_Yaw_Angle = 0.0;
+    uint8_t imu_start_flag = 0; 
+
     protected:
 
     Class_BoardC_BMI IMU_BMI088;
@@ -95,6 +99,8 @@ class Class_IMU
     QEKF_INS_t QEKF_INS;
     IMU_Data_t BMI088_Raw_Data;
     IMU_Data_t Pre_BMI088_Raw_Data;
+
+    float IMU_Tagrget_Tempture = 45.0f;
 
     const float X_b[3] = {1, 0, 0};
     const float Y_b[3] = {0, 1, 0};
@@ -112,11 +118,12 @@ class Class_IMU
     float INS_DWT_Dt_Sum;
     uint32_t INS_DWT_Count;
 
+
+    uint8_t calibration_flag = 0;
     uint8_t gyro_update_flag = 0;
     uint8_t accel_update_flag = 0;
     uint8_t accel_temp_update_flag = 0;
-    uint8_t mag_update_flag = 0;
-    uint8_t imu_start_flag = 0;    
+    uint8_t mag_update_flag = 0;   
 
     void BodyFrameToEarthFrame(const float *vecBF, float *vecEF, float *q);
     void EarthFrameToBodyFrame(const float *vecEF, float *vecBF, float *q);

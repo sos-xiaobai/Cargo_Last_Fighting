@@ -14,6 +14,7 @@
  ******************************************************************************
  */
 #include "QuaternionEKF.h"
+#include "config.h"
 
 QEKF_INS_t QEKF_INS;
 
@@ -96,7 +97,11 @@ void IMU_QuaternionEKF_Init(float process_noise1, float process_noise2, float me
  * @param[in]       accel x y z in m/s²
  * @param[in]       update period in s
  */
-float yaw_offset = 0.00206942181f;
+#ifdef NEW_CAR
+float yaw_offset = 0.000500000024;
+#else if defined(OLD_CAR)
+float yaw_offset = -0.00100000005;
+#endif
 void IMU_QuaternionEKF_Update(float gx, float gy, float gz, float ax, float ay, float az, float dt, QEKF_INS_t *QEKF_INS)
 {
     // 0.5(Ohm-Ohm^bias)*deltaT,用于更新工作点处的状态转移F矩阵

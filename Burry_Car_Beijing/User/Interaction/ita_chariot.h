@@ -38,24 +38,29 @@ class Class_Chariot;
 #define INPUT (HAL_GPIO_ReadPin(INPUT_GPIO_Port, INPUT_Pin) == GPIO_PIN_RESET)
 #define OUTPUT (HAL_GPIO_ReadPin(INPUT_GPIO_Port, INPUT_Pin) == GPIO_PIN_SET)
 
-#define K210_SHEET 90
-#define K210_INIT  -90
+
 
 #ifdef NEW_CAR
 
     #define Init_Position_X 1.0
     #define Init_Position_Y 0.0       
 
-    #define CLOSED  10
-    #define OPEN   -50
+    #define CLOSED  50
+    #define OPEN   -30
+
+    #define K210_SHEET 20
+    #define K210_INIT  -90
 
 #elif defined(OLD_CAR)
 
-    #define Init_Position_X 0.0
-    #define Init_Position_Y 0.0  
+    #define Init_Position_X    0.0
+    #define Init_Position_Y    0.0  
 
-    #define CLOSED 30
-    #define OPEN   0
+    #define CLOSED 10 
+    #define OPEN   -50
+
+    #define K210_SHEET 80
+    #define K210_INIT  -90
  
 #endif
 

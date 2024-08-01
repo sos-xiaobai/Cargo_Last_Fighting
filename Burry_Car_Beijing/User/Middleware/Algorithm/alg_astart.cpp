@@ -1,5 +1,6 @@
 #include "alg_astart.h"
 #include "main.h"
+#include "config.h"
 
 void Class_Astart::Init(float __step,float __x_distance, float __y_distance)
 {
@@ -66,6 +67,7 @@ bool Class_Astart::AStar_Calulate_CallBack(float __start_x, float __start_y, flo
     AStar_Node_Right_Down.Set_Cost(Block_Cost);
     AStar_Node_Right_Up.Set_Cost(Block_Cost);
 
+    #ifdef OLD_CAR
     //计算上下左右四个节点的代价 遇到障碍物则代价为Block_Cost
    if(HAL_GPIO_ReadPin(RIGHT_GPIO_Port, RIGHT_Pin)==GPIO_PIN_RESET)
    {
@@ -83,6 +85,26 @@ bool Class_Astart::AStar_Calulate_CallBack(float __start_x, float __start_y, flo
    {
        AStar_Node_Down.Set_Cost(Block_Cost);
    }
+    #else if defined(NEW_CAR)
+    //计算上下左右四个节点的代价 遇到障碍物则代价为Block_Cost
+    if(HAL_GPIO_ReadPin(RIGHT_GPIO_Port, RIGHT_Pin)==GPIO_PIN_RESET)
+    {
+        AStar_Node_Up.Set_Cost(Block_Cost);
+    }
+    if(HAL_GPIO_ReadPin(UP_GPIO_Port, UP_Pin)==GPIO_PIN_RESET)
+    {
+        AStar_Node_Down.Set_Cost(Block_Cost);
+    }
+    if(HAL_GPIO_ReadPin(LEFT_GPIO_Port, LEFT_Pin)==GPIO_PIN_RESET)
+    {
+        AStar_Node_Left.Set_Cost(Block_Cost);
+    }
+    if(HAL_GPIO_ReadPin(DOWN_GPIO_Port, DOWN_Pin)==GPIO_PIN_RESET)
+    {
+        AStar_Node_Right.Set_Cost(Block_Cost);
+    }   
+    #endif
+
 
     //找到最优代价节点
     AStar_Next_Node = Find_Best_Node();

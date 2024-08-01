@@ -54,8 +54,14 @@ void Class_Chassis::Init()
     // 各个PID初始化
     Position_X_PID.Init(10, 0, 0, 0, 0, 0, 0, 0, 0, 0.005, 0);
     Position_Y_PID.Init(10, 0, 0, 0, 0, 0, 0, 0, 0, 0.005, 0);
-    Position_Yaw_PID.Init(0.1, 0, 0, 0, 0, 0, 0, 0, 0, 0.005, 0);
 
+    #ifdef OLD_CAR
+    Position_Yaw_PID.Init(0.1, 0, 0, 0, 0, 0, 0, 0, 0, 0.005, 0);
+    #elif defined(NEW_CAR)
+    Position_Yaw_PID.Init(0.1, 0, 0, 0, 0, 0, 0, 0, 0,0.005, 0);
+    #endif
+
+    #ifdef OLD_CAR
     // 电机初始化
     Motor[0].Init(&htim12, &htim2, TIM_CHANNEL_1, TIM_CHANNEL_2, 5000, 2484);
     Motor[1].Init(&htim8, &htim1, TIM_CHANNEL_1, TIM_CHANNEL_2, 5000, 2471);
@@ -67,6 +73,19 @@ void Class_Chassis::Init()
     Motor[1].Speed_PID.Init(1300, 1200, 0, 0, 1500, 4999, 0, 0, 0, 0.005, 0);
     Motor[2].Speed_PID.Init(1300, 1200, 0, 0, 1500, 4999, 0, 0, 0, 0.005, 0);
     Motor[3].Speed_PID.Init(4500, 2200, 0, 0, 5000, 20000, 0, 0, 0, 0.005, 0);
+    #else if defined(NEW_CAR)
+    // 电机初始化
+    Motor[0].Init(&htim12, &htim2, TIM_CHANNEL_1, TIM_CHANNEL_2, 5000, 1319);
+    Motor[1].Init(&htim8, &htim1, TIM_CHANNEL_1, TIM_CHANNEL_2, 5000, 1319);
+    Motor[2].Init(&htim8, &htim4, TIM_CHANNEL_3, TIM_CHANNEL_4, 5000, 1319);
+    Motor[3].Init(&htim5, &htim3, TIM_CHANNEL_1, TIM_CHANNEL_2, 20000, 1319);
+
+    // 电机PID初始化
+    Motor[0].Speed_PID.Init(1000, 1200, 0, 0, 1500, 4999, 0, 0, 0, 0.005, 0);
+    Motor[1].Speed_PID.Init(1000, 1200, 0, 0, 1500, 4999, 0, 0, 0, 0.005, 0);
+    Motor[2].Speed_PID.Init(1000, 1200, 0, 0, 1500, 4999, 0, 0, 0, 0.005, 0);
+    Motor[3].Speed_PID.Init(1000, 1200, 0, 0, 5000, 20000, 0, 0, 0, 0.005, 0);
+    #endif
 }
 
 
@@ -304,8 +323,8 @@ bool Class_Chassis::TIM_Position_X_Y_PID_K210_PeriodElapsedCallback(Enum_K210_Di
     MiniPC->TIM_Calculate_PeriodElapsedCallback(dirction);
     Set_Target_Velocity_X(MiniPC->Get_target_x_speed());
     Set_Target_Velocity_Y(MiniPC->Get_target_y_speed());    
-    if (abs(Target_Velocity_X)<0.005 &&
-        abs(Target_Velocity_Y)<0.005)
+    if (abs(MiniPC->Get_target_x()-MiniPC->Get_now_x())<0.1 &&
+        abs(MiniPC->Get_target_y()-MiniPC->Get_now_y())<0.1)
         {
             return true;
         }

@@ -20,7 +20,7 @@
 void Class_IMU::Init()
 {
     //初始化BMI088传感器，计算零漂 并检查初始化是否成功
-    IMU_BMI088.init(&hspi1,&BMI088_Raw_Data);
+    calibration_flag = IMU_BMI088.init(&hspi1,&BMI088_Raw_Data);
     HAL_Delay(100);
  
     //EKF初始化
@@ -28,7 +28,7 @@ void Class_IMU::Init()
     INS.AccelLPF = 0.0085;
 
     //初始化温控pid参数
-    PID_IMU_Tempture.Init(1000, 300, 0, 0.0, uint32_max, uint32_max);
+    PID_IMU_Tempture.Init(800, 1000, 0, 0.0, uint32_max, uint32_max);
     HAL_TIM_PWM_Start(&htim9, TIM_CHANNEL_1);
 }
 
@@ -75,12 +75,18 @@ void Class_IMU::TIM_Calculate_PeriodElapsedCallback(void)
     if(Tempture_Cnt_mod50 % 50 == 0)
     {
         PID_IMU_Tempture.Set_Now(BMI088_Raw_Data.Temperature);
-        PID_IMU_Tempture.Set_Target(40.0f);
+        PID_IMU_Tempture.Set_Target(IMU_Tagrget_Tempture);
         PID_IMU_Tempture.TIM_Adjust_PeriodElapsedCallback();
         TIM_Set_PWM(&htim9, TIM_CHANNEL_1, (uint16_t)PID_IMU_Tempture.Get_Out());
     }
 
     imu_start_flag = 1;
+    //记录初始化之后的yaw角度
+    if(calibration_flag)
+    {
+        Init_Yaw_Angle = INS.Yaw;
+        calibration_flag = 0;
+    }
 }
 
 void Class_IMU::TIM1msMod50_Alive_PeriodElapsedCallback(void)

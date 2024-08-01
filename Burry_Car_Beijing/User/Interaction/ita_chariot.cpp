@@ -24,11 +24,6 @@
 
 /* Function prototypes -------------------------------------------------------*/
 
-// 1号 tim14 ch1  1000   	800
-// 2号 tim13 ch1  1250 		400
-// 3号 tim5  ch3  1550 		1200
-// 4号 tim5  ch4  1250 		450
-
 // 夹取 1 3 4 2
 // 放回 2 4 3 1
 // 舵机输出轴方向看过去，逆时针旋转
@@ -356,34 +351,51 @@ void Class_Chariot::Init(UART_HandleTypeDef *huart)
         Servo[1].Init(&htim13, TIM_CHANNEL_1);
         Servo[2].Init(&htim5, TIM_CHANNEL_3);  
         Servo[3].Init(&htim5, TIM_CHANNEL_4);
-        Servo[4].Init(&htim10, TIM_CHANNEL_1);  //k210
-        Servo[5].Init(&htim11, TIM_CHANNEL_1);   //yaw轴    
+        Servo[4].Init(&htim10, TIM_CHANNEL_1);  //yaw轴 
+        Servo[5].Init(&htim11, TIM_CHANNEL_1);  //k210    
 
-        Servo[5].Set_Angle(-90);    
+        Servo[4].Set_Angle(-90);    
     }
     #else if (OLD_CAR)
     {
-        // Servo[0].Init(&htim14, TIM_CHANNEL_1);
-        // Servo[1].Init(&htim13, TIM_CHANNEL_1);
-        // Servo[2].Init(&htim5, TIM_CHANNEL_3);
-        // Servo[3].Init(&htim5, TIM_CHANNEL_4);   
-        //Servo[4].Init(&htim10, TIM_CHANNEL_1); //yaw轴
+        Servo[0].Init(&htim14, TIM_CHANNEL_1);
+        Servo[1].Init(&htim13, TIM_CHANNEL_1);
+        Servo[2].Init(&htim5, TIM_CHANNEL_3);
+        Servo[3].Init(&htim5, TIM_CHANNEL_4);   
+        Servo[4].Init(&htim10, TIM_CHANNEL_1); //yaw轴
         Servo[5].Init(&htim11, TIM_CHANNEL_1); //k210
 
-        // Servo[5].Set_Angle(0);    
+        Servo[4].Set_Angle(45);    
     }
     #endif
 
-    // k210 初始化
-    MiniPC.Init(&huart5, 0, 0);
+    #ifdef OLD_CAR
+    {
+        // k210 初始化 x y
+        MiniPC.Init(&huart5, 0, -10.0);
+    }
+    #elif defined(NEW_CAR)
+    {
+        // k210 初始化 x y
+        MiniPC.Init(&huart5, 0, -10.0);
+    }
+    #endif
 
     // 底盘初始化
     Chassis.Init();
     Chassis.MiniPC = &MiniPC;
 
-    // A*算法初始化 步长0.05m 4m*4m 地图最大范围
-    Astart.Init(0.05,4,4);
-
+    #ifdef NEW_CAR
+    {
+        // A*算法初始化 步长0.05m 4m*4m 地图最大范围
+        Astart.Init(0.1,4,4);
+    }
+    #else if defined(OLD_CAR)
+    {
+        // A*算法初始化 步长0.05m 4m*4m 地图最大范围
+        Astart.Init(0.05,4,4);
+    }
+    #endif
     // 货物列表初始化
     Cargo_List.Init();
     Now_Cargo_Number = 0;
@@ -434,7 +446,7 @@ uint8_t Class_Chariot::Jundge_Cargo()
  */
 bool Class_Chariot::Servo_Caculate(float x, float y, float angle)
 {
-    #ifdef NWE_CAR
+    #ifdef NEW_CAR
 	float L1 = 0.105;  //杆长 单位/m 靠近底座的杆
 	float L2 = 0.09;
 	float L3 = 0.14;  //0.245 伸长
@@ -475,9 +487,9 @@ bool Class_Chariot::Servo_Caculate(float x, float y, float angle)
     }
     #else if defined(NEW_CAR)
     {
-        Servo[1].Set_Angle(-1.0f*tmp_ptheta[0]);
-        Servo[2].Set_Angle(tmp_ptheta[1]);
-        Servo[3].Set_Angle(tmp_ptheta[2]);
+        Servo[1].Set_Angle(-1.0f*tmp_ptheta[2]);
+        Servo[2].Set_Angle(-1.0f*tmp_ptheta[1]);
+        Servo[3].Set_Angle(tmp_ptheta[0]);
     }
     #endif
 
@@ -606,16 +618,27 @@ void Class_FSM_Chariot_Control::Reload_TIM_Status_PeriodElapsedCallback()
         rgb_SetAllColor(GREEN);   
 
         // 设置机械臂初始角度 开启夹爪
+        #ifdef OLD_CAR
         Chariot->Servo_Caculate(-0.32f, 0.0f, 180.0f);
+        #else if defined(NEW_CAR)
+        Chariot->Servo[1].Set_Angle(90.0f);
+        Chariot->Servo[2].Set_Angle(-90.0f);
+        Chariot->Servo[3].Set_Angle(90.0f);
+        #endif
+
         Chariot->Servo[0].Set_Angle(OPEN);
 
         //k210舵机朝向初始位置
         Chariot->Servo[5].Set_Angle(K210_INIT);
 
         // 设置当前点为初始点
+        #ifdef OLD_CAR
         Chariot->Chassis.Set_Now_Position_X(Init_Position_X);
+        #else if defined(NEW_CAR)
+        Chariot->Chassis.Set_Now_Position_X(-1.0f*Init_Position_X);
+        #endif
         Chariot->Chassis.Set_Now_Position_Y(Init_Position_Y);
-
+        
         // k210 校准位置
         Chariot->Chassis.TIM_Position_X_Y_PID_K210_PeriodElapsedCallback(K210_Forward);
 
@@ -700,7 +723,11 @@ void Class_FSM_Chariot_Control::Reload_TIM_Status_PeriodElapsedCallback()
             }
             else if(Chariot->Now_Cargo.Cargo_Floor == Cargo_Second_Floor)
             {
+                #ifdef OLD_CAR
                 Chariot->Servo_Caculate(0.2f, 0.17f, 17.0f);
+                #else if defined(NEW_CAR)
+                Chariot->Servo_Caculate(0.2f, 0.1f, 40.0f);
+                #endif
             }
         }
 
@@ -708,8 +735,13 @@ void Class_FSM_Chariot_Control::Reload_TIM_Status_PeriodElapsedCallback()
         if (Status[Now_Status_Serial].Time >= 3500)
         {
             // 通过A*算法计算路径 获得下一周期目标点
+            #ifdef OLD_CAR
             Chariot->Astart.AStar_Calulate_CallBack(Chariot->Chassis.Get_Now_Position_X(), Chariot->Chassis.Get_Now_Position_Y(), -1.0f*(Chariot->Now_Cargo.Position_X-48), -1.0f*(Chariot->Now_Cargo.Position_Y-48));
             Chariot->Chassis.Set_Target_Position_X(Chariot->Astart.Get_Tmp_Target_X());
+            #elif defined(NEW_CAR)
+            Chariot->Astart.AStar_Calulate_CallBack(-1.0f*Chariot->Chassis.Get_Now_Position_X(), Chariot->Chassis.Get_Now_Position_Y(), (Chariot->Now_Cargo.Position_X-48), (Chariot->Now_Cargo.Position_Y-48));
+            Chariot->Chassis.Set_Target_Position_X(-1.0f*Chariot->Astart.Get_Tmp_Target_X());
+            #endif
             Chariot->Chassis.Set_Target_Position_Y(Chariot->Astart.Get_Tmp_Target_Y());
             Chariot->Chassis.Set_Target_Angle(0);
             // 编码器导航
@@ -739,7 +771,11 @@ void Class_FSM_Chariot_Control::Reload_TIM_Status_PeriodElapsedCallback()
 
         // 设置当前点为 目标点
         Chariot->Chassis.Set_Now_Position_X(-1.0f*(Chariot->Now_Cargo.Position_X-48));
+        #ifdef OLD_CAR
         Chariot->Chassis.Set_Now_Position_Y(-1.0f*(Chariot->Now_Cargo.Position_Y-48));
+        #elif defined(NEW_CAR)
+        Chariot->Chassis.Set_Now_Position_Y((Chariot->Now_Cargo.Position_Y-48));
+        #endif
 
         // k210 校准位置
         // 如果校准位置完成
@@ -757,7 +793,11 @@ void Class_FSM_Chariot_Control::Reload_TIM_Status_PeriodElapsedCallback()
                 }
                 else if(Chariot->Now_Cargo.Cargo_Floor == Cargo_Second_Floor)
                 {
+                    #ifdef OLD_CAR
                     Chariot->Servo_Caculate(0.2f, 0.17f, 17.0f);
+                    #else if defined(NEW_CAR)
+                    Chariot->Servo_Caculate(0.2f, 0.1f, 40.0f);
+                    #endif
                 }
                 if(cnt >= 2500)
                 {
@@ -804,9 +844,14 @@ void Class_FSM_Chariot_Control::Reload_TIM_Status_PeriodElapsedCallback()
             // 如果另一个小车不busy 则开始导航
             if(Chariot->Get_Another_Chariot_Status()==Chariot_Free_Status)
             {
+                #ifdef OLD_CAR
                 // 通过A*算法计算路径 获得下一周期目标点
                 Chariot->Astart.AStar_Calulate_CallBack(Chariot->Chassis.Get_Now_Position_X(), Chariot->Chassis.Get_Now_Position_Y(), Init_Position_X, Init_Position_Y);
                 Chariot->Chassis.Set_Target_Position_X(Chariot->Astart.Get_Tmp_Target_X());
+                #else if defined(NEW_CAR)
+                Chariot->Astart.AStar_Calulate_CallBack(-1.0f*Chariot->Chassis.Get_Now_Position_X(), Chariot->Chassis.Get_Now_Position_Y(), Init_Position_X, Init_Position_Y);
+                Chariot->Chassis.Set_Target_Position_X(-1.0f*Chariot->Astart.Get_Tmp_Target_X());
+                #endif
                 Chariot->Chassis.Set_Target_Position_Y(Chariot->Astart.Get_Tmp_Target_Y());
                 Chariot->Chassis.Set_Target_Angle(0);
                 // 编码器导航
@@ -835,7 +880,13 @@ void Class_FSM_Chariot_Control::Reload_TIM_Status_PeriodElapsedCallback()
         if (Status[Now_Status_Serial].Time >= 1000)
         {
             //放置机械臂到初始位置
+            #ifdef OLD_CAR
             Chariot->Servo_Caculate(-0.32f, 0.0f, 180.0f);
+            #else if defined(NEW_CAR)
+            Chariot->Servo[1].Set_Angle(90.0f);
+            Chariot->Servo[2].Set_Angle(-90.0f);
+            Chariot->Servo[3].Set_Angle(90.0f);
+            #endif
 
             // 取件返回 先放置机械臂 再松开夹爪回到初始状态
             if (Chariot->Get_Control_Status() == Chariot_Output_Cargo_Status)
