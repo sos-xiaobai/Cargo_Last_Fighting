@@ -271,6 +271,7 @@ uint16_t prescaler = 1;
 uint16_t pwm_duty_pulse = 500;
 bool Sing_Flag = 1;
 bool tets_fla=0;
+uint8_t temp_data[13] = {0};
 void Class_FSM_Chariot_Control::Reload_TIM_Status_PeriodElapsedCallback()
 {
    if(Chariot->Last_Sim_Send_Flag != Chariot->Sim_Send_Flag)
@@ -310,7 +311,10 @@ void Class_FSM_Chariot_Control::Reload_TIM_Status_PeriodElapsedCallback()
                 if(Chariot->Sim_Send_Flag==1)
                 Chariot->SIM900A.Sim900a_Send_Data((char *)Chariot->Now_Cargo.Code, (char *)Chariot->Now_Cargo.Phone_Number);
                 // 给esp32发送添加货物信息
-                Chariot->UART_Send_Add_Cargo();               
+                Chariot->UART_Send_Add_Cargo();
+                sprintf(temp_data, "click m0,1\xff\xff\xff", 13);
+                HAL_HalfDuplex_EnableTransmitter(&huart3);
+                HAL_UART_Transmit(&huart3, temp_data, 13, 100);
             }
             Chariot->ER08.Updata_Flag = 0;
         }
