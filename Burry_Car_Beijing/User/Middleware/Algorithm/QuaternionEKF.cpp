@@ -100,7 +100,7 @@ void IMU_QuaternionEKF_Init(float process_noise1, float process_noise2, float me
 #ifdef NEW_CAR
 float yaw_offset = 0.000500000024;
 #else if defined(OLD_CAR)
-float yaw_offset = -0.00100000005;
+float yaw_offset = 5.477522073828622e-6;
 #endif
 uint32_t cali_cnt=0;
 void IMU_QuaternionEKF_Update(float gx, float gy, float gz, float ax, float ay, float az, float dt, QEKF_INS_t *QEKF_INS)

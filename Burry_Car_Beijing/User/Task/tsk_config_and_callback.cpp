@@ -191,7 +191,7 @@ void TIM6_Task1ms_PeriodElapsedCallback()
     // Chariot.Chassis.Set_Target_Position_X(Chariot.Astart.Get_Tmp_Target_X());
     // Chariot.Chassis.Set_Target_Position_Y(Chariot.Astart.Get_Tmp_Target_Y());
 
-    // Chariot.Chassis.TIM_Position_X_Y_PID_K210_PeriodElapsedCallback(K210_Backward);
+     Chariot.Chassis.TIM_Position_X_Y_PID_K210_PeriodElapsedCallback(K210_Backward);
     // Chariot.Astart.AStar_Calulate_CallBack(-1.0f*Chariot.Chassis.Get_Now_Position_X(), Chariot.Chassis.Get_Now_Position_Y(), astart_test_x, astart_test_y);
     // Chariot.Chassis.Set_Target_Position_X(-1.0f*Chariot.Astart.Get_Tmp_Target_X());
     // Chariot.Chassis.Set_Target_Position_Y(Chariot.Astart.Get_Tmp_Target_Y());

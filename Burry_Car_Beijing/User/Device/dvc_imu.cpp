@@ -28,7 +28,7 @@ void Class_IMU::Init()
     INS.AccelLPF = 0.0085;
 
     //初始化温控pid参数
-    PID_IMU_Tempture.Init(800, 1000, 0, 0.0, uint32_max, uint32_max);
+    PID_IMU_Tempture.Init(2500, 400, 0, 0.0, uint32_max, uint32_max);
     HAL_TIM_PWM_Start(&htim9, TIM_CHANNEL_1);
 }
 

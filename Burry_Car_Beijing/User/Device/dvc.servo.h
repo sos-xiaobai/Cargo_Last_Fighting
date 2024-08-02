@@ -41,7 +41,7 @@ void Class_Servo::Set_Angle(float __Angle)
         __Angle = -90;
     }
     Angle = __Angle;
-    __HAL_TIM_SET_COMPARE(TIM_PWMHandle, Channel, Angle_to_Compare(Angle));
+    //__HAL_TIM_SET_COMPARE(TIM_PWMHandle, Channel, Angle_to_Compare(Angle));
 }
 
 float Class_Servo::Get_Angle()
