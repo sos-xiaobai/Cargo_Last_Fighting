@@ -5,9 +5,6 @@
         }
     ],
     "settings": {
-        "files.associations": {
-            "main.h": "c"
-        },
         "MicroPython.executeButton": [
             {
                 "text": "▶",

@@ -51,7 +51,7 @@ extern UART_HandleTypeDef huart5;
 extern UART_HandleTypeDef huart1;
 extern UART_HandleTypeDef huart2;
 extern UART_HandleTypeDef huart3;
-
+extern UART_HandleTypeDef huart4;
 extern Struct_UART_Manage_Object UART1_Manage_Object;
 extern Struct_UART_Manage_Object UART2_Manage_Object;
 extern Struct_UART_Manage_Object UART3_Manage_Object;

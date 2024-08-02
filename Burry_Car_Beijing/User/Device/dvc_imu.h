@@ -100,7 +100,7 @@ class Class_IMU
     IMU_Data_t BMI088_Raw_Data;
     IMU_Data_t Pre_BMI088_Raw_Data;
 
-    float IMU_Tagrget_Tempture = 45.0f;
+    float IMU_Tagrget_Tempture = 40.0f;
 
     const float X_b[3] = {1, 0, 0};
     const float Y_b[3] = {0, 1, 0};

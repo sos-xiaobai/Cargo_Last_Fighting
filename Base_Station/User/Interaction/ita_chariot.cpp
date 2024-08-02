@@ -301,6 +301,12 @@ void Class_FSM_Chariot_Control::Reload_TIM_Status_PeriodElapsedCallback()
     switch (Now_Status_Serial)
     {
         case 0:
+//		  if(tets_fla)
+//		  {
+//			   sprintf((char *)temp_data, "click m0,1\xff\xff\xff");
+//                HAL_HalfDuplex_EnableTransmitter(&huart3);
+//                HAL_UART_Transmit(&huart3, temp_data, 13, 100);
+//		  }
         // 获取货物信息 如果更新就获取信息 
         if (Chariot->ER08.Updata_Flag)
         {          
@@ -312,9 +318,9 @@ void Class_FSM_Chariot_Control::Reload_TIM_Status_PeriodElapsedCallback()
                 Chariot->SIM900A.Sim900a_Send_Data((char *)Chariot->Now_Cargo.Code, (char *)Chariot->Now_Cargo.Phone_Number);
                 // 给esp32发送添加货物信息
                 Chariot->UART_Send_Add_Cargo();
-                sprintf(temp_data, "click m0,1\xff\xff\xff", 13);
-                HAL_HalfDuplex_EnableTransmitter(&huart3);
-                HAL_UART_Transmit(&huart3, temp_data, 13, 100);
+                sprintf((char *)temp_data, "click m0,1\xff\xff\xff");
+                HAL_HalfDuplex_EnableTransmitter(&huart4);
+                HAL_UART_Transmit(&huart4, temp_data, 13, 100);
             }
             Chariot->ER08.Updata_Flag = 0;
         }

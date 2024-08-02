@@ -22,7 +22,7 @@
 #include "dvc_Tjc011.h"
 #include "dvc_cargo.h"
 #include "dvc_WS2812.h"
-
+#include "stdio.h"
 /* Exported macros -----------------------------------------------------------*/
 class Class_Chariot;
 /* Exported types ------------------------------------------------------------*/
