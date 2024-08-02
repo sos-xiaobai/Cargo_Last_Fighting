@@ -98,7 +98,7 @@ void IMU_QuaternionEKF_Init(float process_noise1, float process_noise2, float me
  * @param[in]       update period in s
  */
 #ifdef NEW_CAR
-float yaw_offset = 0.000500000024;
+float yaw_offset = 2.52927589459883e-5;
 #else if defined(OLD_CAR)
 float yaw_offset = 5.477522073828622e-6;
 #endif

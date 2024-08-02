@@ -602,14 +602,19 @@ void Light_Work_Control(uint16_t work_time)
     }
 }
 
-
+Enum_Chariot_Control_Status test_state = Chariot_Output_Cargo_Status;
+Enum_Cargo_Floor test_floor = Cargo_Second_Floor;
 /**
  * @brief 有限状态机控制回调函数
  *
  */
 void Class_FSM_Chariot_Control::Reload_TIM_Status_PeriodElapsedCallback()
 {
-    Status[Now_Status_Serial].Time++;
+    Set_Status(FSM_Chariot_Input_OR_Output_Cargo_Status);
+    Chariot->Set_Control_Status(test_state);
+    Chariot->Now_Cargo.Cargo_Floor = test_floor;
+    Status[Now_Status_Serial]
+        .Time++;
     switch (Now_Status_Serial)
     {
     case FSM_Chariot_Waiting_Status:
@@ -776,7 +781,7 @@ void Class_FSM_Chariot_Control::Reload_TIM_Status_PeriodElapsedCallback()
         #elif defined(NEW_CAR)
         Chariot->Chassis.Set_Now_Position_Y((Chariot->Now_Cargo.Position_Y-48));
         #endif
-
+        Chariot->Servo[5].Set_Angle(K210_SHEET);
         // k210 校准位置
         // 如果校准位置完成
         if(Chariot->Chassis.TIM_Position_X_Y_PID_K210_PeriodElapsedCallback(K210_Backward))
